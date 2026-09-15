@@ -20,6 +20,9 @@ coverage/
 
 # Link local do protótipo: manter as explicações de design versionadas
 /documentacao/design/figma.local.md
+/figma-clinica-escola-*.zip
+/documentacao/design/telas-modais-restantes.md
+/documentacao/design/componentes-restantes.md
 
 # Variáveis de ambiente: manter somente modelos sem segredos
 .env

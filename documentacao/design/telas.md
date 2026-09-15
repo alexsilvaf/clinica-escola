@@ -193,6 +193,68 @@ Causas encontradas na varredura de 15/09/2026, todas corrigidas:
 
 Duas condições permanecem e **não** são defeito: largura fracionária de coluna flexível (o navegador resolve no desenho) e posição fracionária de glifo centralizado (depende da métrica da fonte). Ambas foram medidas e isoladas para não poluir o relatório.
 
+### 20. Consistência entre telas do mesmo fluxo
+
+A varredura de alinhamento mede cada tela isoladamente e, por isso, deixou passar um tipo de erro: telas corretas individualmente, mas diferentes entre si. Os estados de uma tela (carregamento, vazio, carga) são a mesma tela em outro momento e precisam ter a mesma estrutura.
+
+| Verificação | O que reprova |
+|---|---|
+| Cabeçalho e rodapé | cabeçalho, rodapé ou atalho de teclado montado à mão; página pública sem o rodapé; portal sem o cabeçalho do próprio portal |
+| Item ativo da navegação | barra lateral com item ativo diferente do módulo da tela, ou com mais de um item ativo |
+| Filtros do módulo | telas do mesmo módulo com conjunto ou ordem de filtros diferente |
+| Esqueleto × tabela real | esqueleto com número de colunas diferente do cabeçalho, ou cabeçalho diferente da tabela real |
+| Mesmo elemento, mesmo componente | busca, filtro ou paginação montados à mão em vez do componente |
+
+Divergências encontradas em 15/09/2026, todas corrigidas:
+
+| Divergência | Correção |
+|---|---|
+| O carregamento da lista de estudantes mostrava as seis colunas antigas | o esqueleto de linha de tabela foi atualizado no componente para a anatomia atual (duas células duplas, situação e ação) e a tela passou a espelhar cabeçalho, legenda e paginação da lista real |
+| O esqueleto de “Refinar busca” eram blocos genéricos | nova variante de esqueleto **Campo** (rótulo, caixa e apoio); o carregamento público ganhou os quatro campos, o botão, o cartão de acessibilidade e os três dias da tela real |
+| Filtros das telas de estudantes variavam entre 2, 3 e 4 | as quatro telas usam curso, vínculo, documentação e situação, na mesma ordem |
+| A ação “Novo estudante” não cabia com quatro filtros aplicados | a ação saiu da barra de filtros e foi para o cabeçalho do cartão da lista, igual nas quatro telas |
+| Cabeçalho público em quatro variações (com e sem atalho, 0 ou 4 links, 1 ou 2 ações) | componente **Cabeçalho público**, com o atalho de teclado incluso e variante para o link ativo |
+| Rodapé presente em 3 de 10 páginas públicas | componente **Rodapé público**, presente em todas |
+| Cabeçalho do portal do estudante copiado três vezes | componente **Cabeçalho do estudante**, com variante por aba |
+| Cabeçalho móvel copiado três vezes, com o sinal de “+” no lugar do menu | componente **Cabeçalho público · móvel**, com ícone de menu e alvo de 40 px |
+
+Com o rodapé adicionado, as alturas foram recalculadas pela altura intrínseca do conteúdo e conferidas elemento a elemento contra o próprio contêiner: nenhuma das 42 telas corta conteúdo.
+
+### 21. Protótipo navegável: ligação conferida, não descrita
+
+Um mapa de destinos escrito não prova navegação. O fechamento do protótipo inspeciona as reações de todos os nós e lista cada botão visível sem ligação, que precisa estar justificado na tabela “Ações habilitadas que ficam sem ligação”.
+
+| Regra | Aplicação |
+|---|---|
+| Registro certo | ícone de abrir leva ao quadro do registro daquela linha; não existe “cadastro genérico” preenchido com outra pessoa |
+| Criação ≠ edição | “Novo …” abre quadro vazio; abrir um registro abre o quadro daquele registro, com “Salvar alterações” |
+| Persistência visível | salvar volta à lista com notificação **no fluxo do conteúdo** (empurra a lista, não cobre filtros nem indicadores) e com a mudança aplicada nas linhas |
+| Diálogos | quadros próprios com cortina; “Manter …” e a cortina fecham; confirmar leva ao estado resultante |
+| Escolha que muda o destino | variáveis do protótipo: horário escolhido (`reserva/*`) decide comprovante ou conflito; o que já foi corrigido (`semestre/*`) decide o estado da configuração |
+| Mudança local | variável ligada à visibilidade ou ao rótulo (remover equipamento, copiar código) |
+| Estados transitórios | carregamento, ativação e envio avançam sozinhos depois de 1,5 a 2 s |
+| Outra página | portal da comunidade, do estudante e área interna ficam em páginas diferentes; a passagem entre eles usa o link do protótipo |
+
+Resultado da inspeção de 15/09/2026: 120 quadros de uso (Interno 90, Comunidade 21, Estudante 9), 1.400 nós com reação (Interno 1.217, Comunidade 135, Estudante 48), nenhuma reação apontando para quadro inexistente e oito pontos de partida de fluxo nomeados. Os controles visíveis sem reação são exatamente os listados na tabela de justificativas.
+
+### 22. Dados coerentes entre telas
+
+O mesmo registro aparece em várias telas e precisa contar a mesma história. A varredura de 15/09/2026 encontrou e corrigiu:
+
+| Divergência | Correção |
+|---|---|
+| 15/09/2026 aparecia como segunda-feira no portal público e os dias seguintes com o dia da semana errado | todas as datas de setembro foram recalculadas: 15/09 é terça-feira |
+| A mesma reserva mostrava estudante de outro curso (Diego, de Psicologia, numa avaliação de Fisioterapia com pendência documental) e supervisor fora do dia de atendimento | a agenda da Clínica de Fisioterapia usa só estudantes aptos de Fisioterapia sob a Prof.ª Helena Dias, nas salas dela |
+| Diego tinha “carteira de vacinação pendente” na lista e “atestado recusado + carteira em análise” no próprio portal | lista, carga, fila e cadastro seguem o portal: atestado recusado em 12/09 e carteira em análise |
+| Documento de estudante de Odontologia analisado por professora de Fisioterapia; documento de Psicologia “analisado” por preceptor, papel que a matriz não autoriza | análises atribuídas à coordenação (perfil Master) |
+| Estudante apta na lista aparecia na fila com seguro em análise | a fila passou a mostrar a estudante que de fato tem o seguro em análise |
+| “12 estudantes selecionados” com 3 linhas marcadas | a contagem é a das linhas marcadas (3), no lote e no diálogo; o cabeçalho da seleção mostra estado parcial |
+| Carga com filtros “Fisioterapia” e “Pendentes” aplicados, mas linhas de outros cursos e estudantes aptos | filtros sem valor aplicado; a seleção total passou a “Selecionar os 154” |
+| Supervisão “na quarta” para preceptor que atende às terças e quintas; horário com professora inativa | datas e supervisor ajustados à disponibilidade declarada |
+| Usuária com “acesso revogado” na lista e “papel ainda atribuído” nos acessos a revisar | a lista mostra “papel ainda atribuído” até a revogação ser confirmada |
+| Equipamento do catálogo com o mesmo código de um equipamento já instalado em outra sala | códigos únicos |
+| Validação com “3 supervisores sem limite” e “2 disciplinas sem horário” sem quadros para os demais | um impedimento de cada tipo, cada um com a sua correção demonstrada |
+
 ---
 
 ## Estrutura final das tabelas
@@ -284,8 +346,9 @@ Nenhuma tela com lista, formulário ou consulta está pronta antes de responder 
 | Busca | rótulo visível “Buscar estudante”; considera nome, matrícula e e-mail; consulta no servidor após 300 ms sem digitação |
 | Filtros | curso, vínculo, documentação e situação, como pílulas que exibem o valor escolhido e permitem remoção em um clique |
 | Colunas | estudante (nome, matrícula e curso) · vínculo no semestre (atividade e supervisor) · documentação (data e situação) · ação |
-| Coluna Documentação | a data carrega a situação: `apta desde 02/08`, `1 pendência há 2 dias`, `recusada em 12/09`. É a coluna que explica por que um estudante ativo não recebe horários |
-| Ação por linha | “Editar” como botão com alvo próprio; o nome acessível inclui o registro (“Editar Bruno Lima Carvalho”) |
+| Coluna Documentação | a data carrega a situação: `apta desde 02/08`, `1 pendência há 3 dias`, `recusado em 12/09`. É a coluna que explica por que um estudante ativo não recebe horários. Quando há mais de um documento com problema, mostra o mais grave (recusado antes de em análise) |
+| Ação por linha | ícone de abrir com alvo próprio; o nome acessível inclui o registro (“Abrir Bruno Lima Carvalho”) e leva ao cadastro daquele estudante |
+| Inativação em lote | a contagem da barra de lote é a das linhas marcadas; o diálogo lista os selecionados e, ao confirmar, a lista mostra os registros esmaecidos com “inativo desde” e a barra de lote some |
 | Rodapé | recorte exibido, total real, itens por página e navegação de páginas |
 | Estados | carregando, vazio inicial, vazio por filtro, carga (154 registros), sem permissão para editar |
 
@@ -298,9 +361,10 @@ Nenhuma tela com lista, formulário ou consulta está pronta antes de responder 
 | Vínculo acadêmico | curso, período e um ou mais vínculos do semestre, exibidos como pílulas removíveis |
 | Disponibilidade | grade de turnos por dia. O texto precisa deixar claro que marcar um turno **não** agenda nada: apenas torna o estudante elegível |
 | Situação | seletor Ativo/Inativo com o aviso de que inativar preserva o histórico acadêmico |
-| Aptidão calculada | lista as seis condições como itens de verificação: marcador, título colorido conforme o resultado e o dado que o sustenta (`Documentação obrigatória · 1 item em análise`). É leitura, não edição |
+| Aptidão calculada | lista as seis condições como itens de verificação: marcador, título colorido conforme o resultado e o dado que o sustenta (`Documentação obrigatória · atestado ocupacional recusado em 12/09`). É leitura, não edição. O aviso abaixo muda com o resultado: alerta de pendência, sucesso “apto a receber horários” ou informação de cadastro inativo |
 | Barra de ações | informa que a alteração passa a valer no próximo cálculo e que a operação fica registrada |
-| Estados | rascunho salvo, erro de validação por campo, sem permissão (somente leitura), conflito de matrícula |
+| Modos | **criação** (“Novo estudante”: campos vazios, só “+ Adicionar vínculo”, grade vazia, aptidão neutra, ações Cancelar · Salvar rascunho · Salvar estudante) · **edição de um registro** (um quadro por estudante das listas, com os dados daquela linha; ações Cancelar · Salvar alterações). A contagem de turnos na aptidão é a da grade exibida |
+| Estados | rascunho salvo e cadastro salvo (lista com notificação no topo do conteúdo), erro de validação por campo, sem permissão (somente leitura), conflito de matrícula |
 
 ### Validação de documentação
 **Origem:** UC-002 · RF-002.01 a RF-002.07
@@ -373,9 +437,21 @@ Nenhuma tela com lista, formulário ou consulta está pronta antes de responder 
 | Etapas | identificação, oferta acadêmica, supervisão, capacidade física, validação e ativação — com o estado de cada uma |
 | Validação de consistência | itens de verificação separando **impedimento** (`✕`, bloqueia a ativação) de **atenção** (anel âmbar, não bloqueia), cada um com a origem e ação de correção |
 | Ativação | botão desabilitado enquanto houver impedimento, com o motivo em texto ao lado. O desabilitado usa preenchimento próprio, nunca opacidade |
-| Efeitos da ativação | reservas confirmadas preservadas, mudanças posteriores exigem revisão, clonagem do semestre anterior, registro de quem ativou |
+| Efeitos da ativação | reservas confirmadas preservadas, mudanças posteriores exigem revisão, registro de quem ativou |
 | Histórico semestral | semestre com a situação embutida · período letivo · realizado · quem ativou |
-| Estados | sucesso da ativação como página inteira (não como notificação), erro de validação, sem permissão (exclusivo do Master) |
+| Corrigir | cada impedimento leva ao seu próprio lugar de correção: limite de supervisão ao cadastro do supervisor em modo “limite do semestre”; disciplina sem horário ao **Calendário da oferta acadêmica**. Os dois botões nunca levam ao mesmo cadastro |
+| Estados | com impedimentos (ativação desabilitada) · um impedimento resolvido (calendário corrigido ou limite corrigido) · pronta para ativar (botão habilitado, aviso de sucesso) · ativando (botões desabilitados, conclui sozinho) · sucesso da ativação como página inteira · semestre já ativo (etapa 5 concluída, histórico atualizado, sem botões de ativação) · sem permissão (exclusivo do Master) |
+
+### Calendário da oferta acadêmica
+**Origem:** UC-007 · RF-007.02, RF-007.03 · UC-005 · RF-005.01 · **Destino de:** “Corrigir” da disciplina sem horário
+
+| Item | Especificação |
+|---|---|
+| Identificação da oferta | disciplina ou estágio (vem do catálogo), curso e período, semestre em configuração e clínica |
+| Dias e horários | grade de turnos por dia com a marca “Oferta” e início e término dentro do turno. O texto lembra que o horário só existe quando estudante, supervisor e clínica também estão disponíveis |
+| Antes de salvar | oferta vinculada ao semestre, dias e horários definidos, supervisão disponível no turno |
+| Saída | “Salvar horário” volta à configuração e executa a validação de novo; “Cancelar” volta sem salvar. O destino depende do que já foi corrigido: se o limite de supervisão também estiver resolvido, a configuração aparece pronta para ativar |
+| Estados | erro por campo, conflito com o turno do supervisor, sem permissão (exclusivo do Master) |
 
 ### Usuários e permissões
 **Origem:** UC-009 · RF-009.03, RF-009.04, RF-009.05
@@ -422,7 +498,8 @@ Nenhuma tela com lista, formulário ou consulta está pronta antes de responder 
 | Oferta restante | horários ainda disponíveis e, para os indisponíveis, o motivo (`sem supervisor`, `limite de supervisão`, `manutenção`) |
 | Detalhe da reserva | dados mínimos da pessoa, recursos consumidos, prazo de confirmação e histórico |
 | Confirmação | revalida supervisor, capacidade física e documentação antes de manter a reserva |
-| Cancelamento | exige diálogo de confirmação com a consequência descrita |
+| Cancelamento | exige diálogo de confirmação com a consequência descrita. “Manter atendimento” fecha o diálogo; “Cancelar atendimento” volta à lista com a linha “cancelado pela equipe”, o detalhe sem ações, o evento no histórico, a vaga de volta na oferta restante e os indicadores recalculados (17 reservas, 7 vagas, 6 cancelamentos) |
+| Confirmação pela equipe | “Confirmar reserva” mostra a linha confirmada, o aviso de revalidação concluída e o evento no histórico; só “Cancelar” continua disponível |
 | Estados | carregando, vazio (dia sem reservas), erro, sucesso, sem permissão |
 
 ### Cadastro de supervisor
@@ -436,7 +513,9 @@ Nenhuma tela com lista, formulário ou consulta está pronta antes de responder 
 | Limite simultâneo | quantidade máxima de estudantes ao mesmo tempo, com o alerta de que reduzir o limite não cancela reservas já confirmadas |
 | Ocupação atual | mostra o efeito imediato do limite nos intervalos do dia |
 | Antes de salvar | itens de verificação, incluindo aviso quando o limite fica abaixo da ocupação de algum intervalo |
-| Estados | erro por campo, sem permissão, sucesso |
+| Modos | **criação** (campos vazios, nenhum ambiente, grade vazia, sem ocupação) · **edição de um registro** (um quadro por supervisor da lista; o ícone de abrir de cada linha leva ao próprio registro) · **limite do semestre** (aberto por “Corrigir” na configuração; campo do limite em foco, sem ocupação, salvar volta à configuração) |
+| Ambientes | um único selo “+ Adicionar ambiente” abre o catálogo de ambientes; os ambientes vinculados aparecem como selos removíveis |
+| Estados | erro por campo, sem permissão, sucesso (lista de supervisores com notificação) |
 
 ### Usuário e papel
 **Origem:** UC-009 · RF-009.03, RF-009.04 · **Destino de:** “Novo usuário”, “Revogar papel” e “Revisar perfis”
@@ -448,11 +527,14 @@ Nenhuma tela com lista, formulário ou consulta está pronta antes de responder 
 | Escopo | unidade obrigatória e clínica opcional; fora do escopo a operação é negada mesmo com o papel correto |
 | O que este papel poderá fazer | leitura da matriz vigente para o papel escolhido, com permitido e negado |
 | Situação | ativo ou inativo; inativar preserva o histórico e encerra o acesso |
-| Pendência exibida | o escopo do perfil Master ainda não foi decidido na documentação |
-| Estados | erro por campo, sem permissão (exclusivo do Master), sucesso |
+| Pendência exibida | o escopo do perfil Master ainda não foi decidido na documentação; o aviso aparece na criação e nos usuários com papel Master |
+| Modos | **criação** (nenhum papel selecionado, o que o papel permite fica neutro até a escolha) · **edição de um registro** (um quadro por usuário da lista, com a leitura da matriz do papel dele; cadastro inativo mostra as permissões sem efeito) |
+| Revogar papel | abre o diálogo de revogação da usuária apontada em “Acessos a revisar”; confirmar volta à lista com a situação “papel revogado” e o aviso resolvido |
+| Revisar perfis | lista filtrada pelo papel Master |
+| Estados | erro por campo, sem permissão (exclusivo do Master), sucesso (lista de usuários com notificação) |
 
 ### Ambiente e capacidade
-**Origem:** UC-006 · RF-006.01 a RF-006.03, RF-006.06 · **Destino de:** “Adicionar ambiente” e “Editar capacidades”
+**Origem:** UC-006 · RF-006.01 a RF-006.03, RF-006.06 · **Destino de:** “Adicionar ambiente” e ícone de abrir de cada ambiente
 
 | Item | Especificação |
 |---|---|
@@ -461,7 +543,14 @@ Nenhuma tela com lista, formulário ou consulta está pronta antes de responder 
 | Equipamentos | lista com quantidade ou unidade identificada, aceitando os dois modelos enquanto a decisão não vem |
 | Capacidade efetiva resultante | itens de verificação e o número de vagas por horário |
 | Situação | disponível ou bloqueado, com o efeito sobre reservas confirmadas |
-| Estados | erro por campo, sem permissão, sucesso |
+| Modos | **criação** a partir do cartão de cada clínica (clínica preenchida, demais campos vazios) · **edição de um registro** (um quadro por ambiente; o ambiente bloqueado mostra o impedimento e zero vagas) |
+| Remover equipamento | sem uso por serviço, some da lista na hora (ainda não salvo); **em uso** por serviço, abre o diálogo que mostra quais serviços perdem vagas e quantas, e confirmar mostra o ambiente sem o equipamento e a capacidade recalculada |
+| Adicionar equipamento | abre o catálogo de equipamentos da clínica, com quantidade para equipamento por quantidade |
+| Estados | erro por campo, sem permissão, sucesso (Clínicas com notificação) |
+
+### Clínicas · tabela de ambientes
+
+A ação “Editar capacidades” do cartão da clínica saiu: ela não dizia qual ambiente seria editado. Cada linha ganhou o ícone de abrir, que leva ao ambiente daquela linha. A coluna de simultâneos virou célula dupla (atendimentos em cima, estudantes embaixo) para não quebrar texto com a nova coluna.
 
 ---
 
@@ -479,6 +568,13 @@ Nenhuma tela com lista, formulário ou consulta está pronta antes de responder 
 | Histórico | todos os envios e decisões, sem exclusão |
 | Estados | nenhum documento exigido, carregando, erro de envio (arquivo inválido ou grande demais), sucesso de envio |
 
+| Estado do envio | O que a área de envio mostra |
+|---|---|
+| Arquivo selecionado | nome, formato, tamanho e o documento a que se refere; ações “Enviar documento” e “Trocar arquivo” |
+| Enviando | barra de progresso com percentual e volume; única ação “Cancelar envio”; conclui sozinho |
+| Erro no envio | fundo e borda de erro, o motivo com o número (tamanho do arquivo contra o limite), a garantia de que nada foi enviado e “Escolher outro arquivo” |
+| Registrado | notificação no topo, documento passa a “em análise desde 15/09” com o prazo, aviso do topo muda de bloqueio para análise e o envio entra no histórico |
+
 ### Horários elegíveis
 **Origem:** UC-005 · RF-005.01 a RF-005.06; clareza do vazio conforme RNF-005.USA-01
 
@@ -489,7 +585,8 @@ Nenhuma tela com lista, formulário ou consulta está pronta antes de responder 
 | Pré-visualização | mostra os horários que existiriam, esmaecidos e marcados como bloqueados, para dar noção do que se perde |
 | Seus requisitos | os seis itens com resultado e o dado que sustenta cada um |
 | Privacidade | a lista não expõe identidade de outros estudantes, pacientes ou supervisores fora do contexto |
-| Estados | carregando, vazio por impedimento, vazio por ausência de oferta, erro |
+| Estados | carregando, vazio por impedimento, vazio por ausência de oferta, erro, **liberado** (sem o cartão de impedimento; horários com texto em cor normal e “elegível” em verde; documentação conforme) |
+| Coerência de datas | os horários respeitam a disponibilidade do supervisor (Prec. Marcos Reis, terças e quintas à tarde) e o filtro de período cobre todas as datas listadas |
 
 ### Meu perfil
 **Origem:** UC-001 · RF-001.01, RF-001.03 · US-001.02 · **Destino de:** aba “Meu perfil”
@@ -592,96 +689,161 @@ Os dois desfechos existem como tela porque encerram um fluxo iniciado fora do si
 
 Seletor reutilizado por vínculo do estudante, ambiente do supervisor e equipamento do ambiente. Traz busca com rótulo, lista com seleção múltipla, o aviso de que vincular não cria horário sozinho e a ação nomeando quantos itens serão adicionados.
 
+| Variante | Conteúdo próprio |
+|---|---|
+| Vínculo acadêmico | disciplinas e estágios do semestre vigente, com curso, período e dia |
+| Ambientes de supervisão | ambientes das clínicas ainda não vinculados ao supervisor; aviso de que ambiente vinculado não garante vaga |
+| Equipamentos | equipamentos da clínica, com o modelo (por quantidade ou identificado por unidade, com código) e o campo de quantidade no ambiente para os equipamentos por quantidade; aviso de que equipamento exigido limita a capacidade |
+
+“Cancelar” fecha sem aplicar; “Adicionar” aplica a seleção e fecha, voltando ao formulário que abriu o catálogo.
+
 ### Conflito pela última vaga
 **Origem:** UC-008 · RNF-008.CON-01, RNF-008.INT-01
 
 Estado exibido quando duas pessoas disputam a mesma vaga. Precisa afirmar que **nenhuma reserva foi criada**, explicar o que aconteceu em linguagem comum e oferecer horários alternativos já verificados no momento da exibição.
+
+No protótipo, o conflito aparece como sobreposição sobre os dados mínimos quando o horário escolhido é a última vaga (09h00 de terça, 15/09, Sala 3). A primeira alternativa vem pré-selecionada; “Reservar o horário escolhido” volta aos dados mínimos com o novo horário e os dados preservados — nenhuma reserva é criada automaticamente. Qualquer outro horário leva ao comprovante. Os dois desfechos nunca aparecem juntos.
+
+### Cancelamento público (diálogo)
+**Origem:** UC-008 · RF-008.06
+
+Diálogo com a data, o serviço e o local da reserva pública — sem nenhuma informação interna da clínica — e a consequência: a vaga volta à comunidade e o código deixa de abrir o agendamento. “Manter atendimento” fecha; “Cancelar atendimento” leva a Atendimento cancelado. No celular, o mesmo conteúdo aparece como folha inferior com as ações empilhadas, a perigosa primeiro.
 
 ### Fluxo móvel (390 px)
 **Origem:** UC-008 · RNF-008.RES-01, RNF-008.USA-01
 
 As três etapas funcionam a partir de 360 px sem rolagem horizontal. Indicador de etapa fixo no topo, ação primária ancorada no rodapé, campos em coluna única e alvos de 44 px.
 
+O fluxo móvel termina em telas móveis próprias, sem depender de tela de computador: comprovante, conflito pela última vaga, meu agendamento (consulta por código), presença confirmada e atendimento cancelado. O menu do cabeçalho móvel oferece apenas “Agendar atendimento” e “Meu agendamento”, porque as páginas institucionais ainda não têm versão móvel desenhada.
+
 ---
 
-## Página `Estados` do protótipo
+## Organização das páginas do protótipo
 
-Cada quadro demonstra um estado em contexto real. O que antes estava escrito dentro das telas como nota de especificação está consolidado aqui.
+O protótipo do Figma só navega entre quadros da **mesma página**. Por isso a antiga página `Estados` foi desfeita e cada estado foi para a página do seu portal; cada página é organizada em linhas nomeadas no canvas, sem quadros sobrepostos.
 
-| Quadro | Serve de referência para |
+| Página | Linhas |
 |---|---|
-| Carregamento · lista de estudantes | esqueleto de tabela com altura idêntica à linha real |
-| Carregamento · horários públicos | status descritivo em região viva e esqueleto de cartão de horário |
+| Interno (equipe) | telas principais · estados de tela · sobreposições e diálogos · semestre (calendário e estados de ativação) · estudantes por registro · supervisores por registro, criação e limite · usuários por registro · ambientes por registro e criação · resultados com notificação |
+| Comunidade (público) | computador: telas, estados e sobreposições · celular: telas e estados, sobreposições |
+| Estudante | telas do portal · estados (horários liberados, envio de documento, disponibilidade salva) |
+
+| Quadro de estado | Serve de referência para |
+|---|---|
+| Carregamento · lista de estudantes | esqueleto de tabela com altura idêntica à linha real; no protótipo avança sozinho para a lista |
+| Carregamento · horários públicos | status descritivo em região viva e esqueleto de cartão de horário; avança sozinho para os horários |
 | Vazio · primeira execução do semestre | vazio que ensina a ordem das dependências entre cadastros |
 | Vazio · busca sem resultado | filtros ativos visíveis e previsão de resultado ao remover cada um |
+| Vazio · filtros sem resultado | o mesmo vazio depois de “Remover apenas a busca”: três filtros continuam ativos e ainda não há resultado |
 | Sem permissão · área restrita | itens sem permissão visíveis e esmaecidos, com alternativas e registro da tentativa |
-| Sem permissão · código inválido | mensagem genérica por segurança e limite de tentativas |
+| Sem permissão · código inválido | mensagem genérica por segurança |
 | Sucesso · documento aprovado | feedback em três níveis: notificação, mudança na lista e efeito explicado |
 | Sucesso · semestre ativado | sucesso de operação crítica como página, com consequências e pendências |
 | Carga · 154 registros | paginação, ordenação, seleção em lote e densidade |
-| Confirmação de ação destrutiva | diálogo com consequência concreta e botões nomeados |
+| Confirmação de ação destrutiva | diálogo com consequência concreta e botões nomeados, em cena completa |
 | Erro · falha ao carregar dados | falha isolada, com o que continua funcionando e nova tentativa |
+
+Sobreposições são quadros próprios, com a cortina e o diálogo centralizado; clicar na cortina fecha. No celular, a folha fica ancorada na base e o menu no topo.
 
 ---
 
 ## Mapa de ações e destinos
 
-O mapa abaixo descreve os destinos esperados das ações; não comprova conexões de protótipo configuradas. A [auditoria de navegação](telas-modais-restantes.md) registra o estado verificado no Figma e as telas, modais e variantes restantes. Três desfechos possíveis: **tela** (navega para outra tela do arquivo), **na própria tela** (muda o conteúdo sem sair) ou **diálogo** (confirmação sobreposta).
+As ligações abaixo **estão configuradas** no protótipo e foram conferidas por inspeção das reações de todos os nós (ver item 21). Desfechos: **tela** (navega), **sobreposição** (abre por cima; fechar devolve à tela de origem), **estado** (outro quadro da mesma tela) ou **local** (muda a própria tela por variável do protótipo).
 
 ### Área interna
 
 | Ação | Onde está | Desfecho |
 |---|---|---|
+| Itens da barra lateral | todas as telas internas | tela do módulo; o item ativo não tem ligação (é a tela atual) |
+| Sair | barra lateral | tela · Entrar no sistema |
 | Entrar | Entrar no sistema | tela · Painel da operação |
-| Ver agenda completa | Painel | tela · Agendamentos da clínica |
-| Revisar configuração | Painel | tela · Configuração do semestre |
-| Novo estudante | Estudantes, carregamento, vazio, carga | tela · Cadastro de estudante |
-| Abrir (ícone, por linha) | Estudantes, Usuários, carga | tela · cadastro do registro daquela linha |
-| Salvar estudante · Salvar rascunho · Cancelar | Cadastro de estudante | na própria tela · volta à lista com notificação |
-| Adicionar vínculo | Cadastro de estudante | diálogo · Adicionar do catálogo |
-| Abrir documento | Validação de documentação | na própria tela · abre o arquivo protegido no visualizador do navegador |
-| Aprovar documento | Validação de documentação | na própria tela · estado Sucesso · documento aprovado |
-| Recusar | Validação de documentação | na própria tela · exige a orientação de correção antes de registrar |
-| Novo supervisor · Ajustar limite | Supervisores, Capacidade | tela · Cadastro de supervisor |
-| Salvar supervisor · Cancelar | Cadastro de supervisor | na própria tela · volta à lista |
-| Ver alternativas · Ver horários alternativos | Capacidade | tela · Agendamentos da clínica, filtrado pelo intervalo |
-| Adicionar ambiente · Editar capacidades | Clínicas e ambientes | tela · Ambiente e capacidade |
-| Adicionar equipamento | Ambiente e capacidade | diálogo · Adicionar do catálogo |
-| Remover (equipamento) | Ambiente e capacidade | na própria tela · com confirmação quando o equipamento estiver em uso |
-| Aplicar bloqueio · Cancelar | Clínicas e ambientes | na própria tela · diálogo de confirmação quando houver reserva no período |
-| Corrigir | Configuração do semestre | tela · cadastro correspondente ao impedimento |
-| Executar verificação novamente | Configuração do semestre | na própria tela · estado de carregamento |
-| Ativar semestre | Configuração do semestre | tela · Sucesso · semestre ativado |
-| Novo usuário | Usuários e permissões | tela · Usuário e papel |
-| Revogar papel · Revisar perfis | Usuários e permissões | tela · Usuário e papel, com diálogo de confirmação na revogação |
-| Salvar usuário · Cancelar | Usuário e papel | na própria tela · volta à lista |
-| Confirmar reserva | Agendamentos da clínica | na própria tela · revalida e atualiza a linha |
-| Cancelar (reserva) | Agendamentos da clínica | diálogo · Confirmação de ação destrutiva |
-| Inativar · Selecionar os 47 | Estado de carga | na própria tela · seleção em lote, com diálogo na inativação |
-| Tentar novamente | Estado de erro | na própria tela · refaz a consulta |
+| Ver agenda completa · Revisar configuração | Painel | tela · Agendamentos · Configuração do semestre |
+| Novo estudante · Cadastrar estudante | Estudantes, carregamento, vazios, carga | tela · Novo estudante (criação) |
+| Abrir (ícone, por linha) | Estudantes, carga, Supervisores, Usuários, Clínicas e os resultados dessas listas | tela · cadastro do registro daquela linha |
+| + Adicionar vínculo | cadastro de estudante | sobreposição · catálogo de vínculo acadêmico |
+| Salvar estudante · Salvar alterações | cadastro de estudante | estado · Estudantes com notificação “Cadastro do estudante salvo” |
+| Salvar rascunho | Novo estudante | estado · Estudantes com notificação “Rascunho salvo” |
+| Cancelar | cadastros de estudante, supervisor, usuário e ambiente | tela · lista do módulo, sem salvar |
+| Aprovar documento | Validação de documentação | estado · Sucesso · documento aprovado |
+| Recusar | Validação de documentação | estado · fila com notificação de recusa registrada |
+| Analisar o próximo documento · Ver a estudante | Sucesso · documento aprovado | tela · fila · cadastro da estudante aprovada |
+| Novo supervisor | Supervisores | tela · Novo supervisor (criação) |
+| Ajustar limite | Capacidade | tela · cadastro do supervisor daquele cartão |
+| Ver alternativas · Ver horários alternativos | Capacidade | tela · Agendamentos da clínica |
+| + Adicionar ambiente | cadastro de supervisor | sobreposição · catálogo de ambientes |
+| Salvar alterações · Salvar supervisor | cadastro de supervisor | estado · Supervisores com notificação |
+| Adicionar ambiente | cartão de cada clínica | tela · Novo ambiente com a clínica preenchida |
+| Aplicar bloqueio | Clínicas | sobreposição · bloqueio com reservas afetadas → “Aplicar bloqueio” leva a Clínicas com notificação; “Voltar ao formulário” fecha |
+| Adicionar equipamento | cadastro de ambiente | sobreposição · catálogo de equipamentos |
+| Remover (equipamento sem uso) | cadastro de ambiente | local · a linha some; Cancelar e Salvar restauram a demonstração |
+| Remover (maca da Sala 1, em uso) | Ambiente · Sala 1 | sobreposição · remoção de equipamento em uso → estado · Sala 1 sem macas, capacidade 0 |
+| Salvar alterações · Salvar ambiente | cadastro de ambiente | estado · Clínicas com notificação |
+| Corrigir (limite de supervisão) | Configuração do semestre e estados | tela · limite 2027.1 da Prec. Ana Beatriz |
+| Corrigir (disciplina sem horário) | Configuração do semestre e estados | tela · Calendário da oferta acadêmica |
+| Salvar limite · Salvar horário | limite do semestre · calendário | estado · configuração com um impedimento resolvido ou pronta para ativar, conforme o que já foi corrigido (variáveis `semestre/limite-definido` e `semestre/calendario-definido`) |
+| Cancelar | limite do semestre · calendário | volta à tela anterior |
+| Ativar semestre | Configuração · pronta para ativar | estado · ativando → conclui sozinho em Sucesso · semestre ativado |
+| Voltar à configuração | Sucesso · semestre ativado | estado · semestre 2027.1 ativo |
+| Ver oferta publicada · Ver agenda | Sucesso · semestre ativado | portal da comunidade · Horários disponíveis (link do protótipo, outra página) |
+| Revisar fila · Ver capacidade | Sucesso · semestre ativado | tela · Validação de documentação · Capacidade |
+| Novo usuário | Usuários | tela · Usuário e papel (criação) |
+| Revogar papel | Usuários · acessos a revisar | sobreposição · revogação de papel → estado · Usuários com papel revogado; “Manter papel” fecha |
+| Revisar perfis | Usuários · acessos a revisar | estado · Usuários filtrados pelo papel Master |
+| Salvar alterações · Salvar usuário | cadastro de usuário | estado · Usuários com notificação |
+| Confirmar reserva | Agendamentos | estado · reserva confirmada |
+| Cancelar (reserva) | Agendamentos, reserva confirmada, cena de confirmação | sobreposição · cancelamento interno → estado · reserva cancelada; “Manter atendimento” fecha |
+| Inativar | Carga | sobreposição · inativação em lote → estado · 3 estudantes inativados; “Manter ativos” fecha |
+| Limpar todos os filtros · Remover apenas a busca | Vazio · busca sem resultado | tela · Estudantes · estado · Vazio · filtros sem resultado |
+| Voltar ao painel · Abrir minha fila de documentos · Abrir (ícones de alternativa) | Sem permissão · área restrita | tela · Painel · Validação · Capacidade · Agendamentos |
+| Tentar novamente · Voltar ao painel | Erro · falha ao carregar dados | tela · Capacidade · Painel |
 
 ### Portal do estudante
 
 | Ação | Onde está | Desfecho |
 |---|---|---|
-| Reenviar documento · Escolher arquivo | Meus documentos | na própria tela · abre a área de envio e o seletor do sistema |
+| Abas Meus horários · Meus documentos · Meu perfil | cabeçalho do estudante | tela da aba; a aba ativa não tem ligação |
+| Sair | cabeçalho do estudante | Entrar no sistema (link do protótipo, outra página) |
 | Ir para meus documentos | Horários elegíveis, Meu perfil | tela · Meus documentos |
-| Salvar alterações · Cancelar | Meu perfil | na própria tela · confirma a disponibilidade declarada |
+| Reenviar documento | Meus documentos | estado · documento selecionado |
+| Escolher arquivo | Meus documentos | estado · erro no envio (arquivo acima do limite) |
+| Enviar documento · Trocar arquivo | documento selecionado | estado · enviando (conclui sozinho em registrado) · Meus documentos |
+| Cancelar envio · Escolher outro arquivo | enviando · erro no envio | estado · documento selecionado |
+| Salvar alterações | Meu perfil | estado · disponibilidade salva; lá, “Cancelar” volta ao perfil |
 
 ### Portal da comunidade
 
 | Ação | Onde está | Desfecho |
 |---|---|---|
-| Agendar atendimento · Ver horários · Ver horários disponíveis | todas as páginas públicas | tela · Horários disponíveis |
-| Atualizar resultados | Horários disponíveis | na própria tela · refaz a consulta |
-| Reservar horário | Dados mínimos | tela · Comprovante, ou estado de conflito quando a vaga acabar |
+| Serviços · Como funciona | cabeçalho público | rolagem até a seção na página inicial; nas demais páginas, página inicial |
+| Endereços e horários · Acessibilidade | cabeçalho público | tela · Endereços; em Endereços, Acessibilidade rola até a seção |
+| Marca | cabeçalho público | tela · Início |
+| Meu agendamento · Agendar atendimento | cabeçalho público e menu móvel | tela · Gerenciar (ou Meu agendamento móvel) · Horários disponíveis (ou versão móvel); na própria tela, sem ligação |
+| Menu | cabeçalho móvel | sobreposição · menu móvel; o X e a cortina fecham |
+| Horário disponível | Horários disponíveis (computador e celular) | tela · Dados mínimos com data, hora e sala escolhidas (variáveis `reserva/*`) |
+| Atualizar resultados | Horários disponíveis | estado · carregamento público → volta sozinho |
+| Reservar horário | Dados mínimos | tela · Comprovante; se o horário escolhido for a última vaga (09h00 de 15/09), sobreposição · conflito (celular: tela de conflito) |
+| Reservar o horário escolhido · Ver todos os horários | conflito | tela · Dados mínimos com a alternativa escolhida · Horários disponíveis |
 | Voltar e escolher outro horário | Dados mínimos | tela · Horários disponíveis |
-| Copiar (código) | Comprovante | na própria tela |
-| Confirmar presença | Comprovante, Gerenciar, móvel | tela · Sucesso · presença confirmada |
-| Cancelar atendimento | Comprovante, Gerenciar, móvel | diálogo de confirmação e, em seguida, tela · Sucesso · atendimento cancelado |
-| Meu agendamento · Localizar | todas as páginas públicas | tela · Gerenciar meu agendamento, ou estado de código inválido |
-| Endereços e horários · Acessibilidade | cabeçalho público | tela · Endereços, horários e acessibilidade |
-| Serviços · Como funciona | cabeçalho público | na própria página · âncoras da página inicial |
+| Copiar | Comprovante | local · o rótulo muda para “Copiado” |
+| Confirmar presença | Comprovante, Gerenciar, telas móveis | tela · Presença confirmada (computador ou celular) |
+| Cancelar atendimento | Comprovante, Gerenciar, Presença confirmada, telas móveis | sobreposição · diálogo público (celular: folha inferior) → tela · Atendimento cancelado; “Manter atendimento” fecha |
+| Ver meu agendamento · Voltar ao início · Agendar outro horário | Presença confirmada, Atendimento cancelado | tela · Gerenciar · Início · Horários disponíveis |
+| Consultar outro código | Atendimento cancelado (celular) | tela · Meu agendamento móvel |
+| Tentar outro código · Ver contatos da clínica · Ver horários disponíveis | Código inválido | tela · Gerenciar · Endereços · Horários disponíveis |
+| Ver horários | Início, Endereços | tela · Horários disponíveis |
+
+### Ações habilitadas que ficam sem ligação, e por quê
+
+| Ação | Motivo |
+|---|---|
+| Ativar semestre com impedimento; botões durante “ativando” | desabilitados de propósito; o texto ao lado diz o motivo |
+| Item ativo da barra lateral, aba ativa, “Meu agendamento” em Gerenciar, “Agendar atendimento” em Horários, “Revisar perfis” já filtrado, “Recusar” após recusa, “Reenviar” com arquivo já selecionado, “Salvar” com disponibilidade já salva | o destino é a própria tela; o protótipo não aceita ligação para o mesmo quadro |
+| Itens restritos na tela Sem permissão · área restrita | são a própria demonstração da restrição; continuam visíveis e esmaecidos |
+| Localizar (Gerenciar, Meu agendamento móvel, Código inválido) | a tela já mostra o resultado daquele código |
+| Abrir documento | abre o arquivo protegido no visualizador do navegador, fora do produto |
+| Executar verificação novamente | refaz a validação e devolve o mesmo resultado desenhado |
+| Selecionar os 154 · Cancelar do formulário de bloqueio · Cancelar em Meu perfil | seleção e descarte locais sem mudança visual relevante para demonstrar |
 
 ### Ações retiradas por dependerem de decisão pendente
 
@@ -690,6 +852,13 @@ O mapa abaixo descreve os destinos esperados das ações; não comprova conexõe
 | Esqueci minha senha | recuperação de acesso não está definida; o aviso do login indica o perfil Master, que cria e redefine usuários |
 | Tratar as reservas em conflito | a documentação ainda não decidiu o que acontece com reservas existentes quando o semestre muda; o aviso agora só informa e aponta tratamento manual |
 | Falar com a coordenação | não havia canal definido |
+| Solicitar acesso ao Master | não há canal nem fluxo de solicitação; virou “Abrir minha fila de documentos”, mantendo a orientação de procurar o Master |
+| Falar com a recepção | a ação não fazia nada além do texto; virou “Ver contatos da clínica”, que leva a Endereços |
+| Cobrar documentação pendente | cobrança ativa não está prevista; virou “Revisar fila” |
+| Publicar a agenda da comunidade | não existe publicação independente da ativação; virou “Ver agenda” |
+| Editar capacidades (cartão da clínica) | não dizia qual ambiente seria editado; substituída pelo ícone de abrir em cada ambiente |
+| Selos “+ Sala 3” e “+ Ambulatório de Nutrição” | adicionavam ambientes específicos sem passar pelo catálogo; viraram um único “+ Adicionar ambiente” |
+| Links institucionais no menu móvel | Serviços, Como funciona, Endereços e Acessibilidade não têm versão móvel; o menu móvel oferece só agendar e consultar |
 
 
 ---
@@ -735,7 +904,7 @@ Mantidos por terem base explícita: prazo de confirmação (RN-008.04 fala em �
 | UC-004 | Capacidade de supervisão | RF-004.01 a RF-004.05 |
 | UC-005 | Horários elegíveis (estudante) | RF-005.01 a RF-005.06 |
 | UC-006 | Clínicas, ambientes e equipamentos | RF-006.01 a RF-006.06 |
-| UC-007 | Configuração do semestre | RF-007.01 a RF-007.06 |
+| UC-007 | Configuração do semestre e seus estados · Calendário da oferta acadêmica · limite de supervisão do semestre | RF-007.01 a RF-007.06 |
 | UC-008 | Fluxo público (5 telas), conflito, móvel, agendamentos da clínica | RF-008.01 a RF-008.07 |
 | UC-009 | Entrar no sistema, usuários e permissões, auditoria, painel | RF-009.01 a RF-009.08 |
 
