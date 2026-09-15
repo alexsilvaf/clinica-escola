@@ -1,0 +1,22 @@
+<section class="resumo" aria-label="Sobre o atendimento">
+  <h2>Sobre o atendimento</h2>
+  <dl>
+    <div>
+      <dt>Serviço</dt>
+      <dd>{{ clinica().servico }}</dd>
+    </div>
+    <div>
+      <dt>Duração estimada</dt>
+      <dd>{{ clinica().duracaoMinutos }} minutos</dd>
+    </div>
+    <div>
+      <dt>Clínica</dt>
+      <dd>{{ clinica().nome }}</dd>
+    </div>
+    <div>
+      <dt>Endereço de exemplo</dt>
+      <dd>{{ clinica().endereco }}<br />{{ clinica().cidade }}</dd>
+    </div>
+  </dl>
+  <p class="resumo__nota">Informações fictícias para demonstrar a tela de agendamento.</p>
+</section>

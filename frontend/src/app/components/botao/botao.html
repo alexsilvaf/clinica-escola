@@ -1,0 +1,9 @@
+<button
+  class="botao"
+  [class.botao--secundario]="variante() === 'secundario'"
+  [type]="tipo()"
+  [disabled]="desabilitado()"
+  (click)="acionado.emit()"
+>
+  {{ rotulo() }}
+</button>

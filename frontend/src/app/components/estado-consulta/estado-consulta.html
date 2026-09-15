@@ -1,0 +1,42 @@
+@switch (estado()) {
+  @case ('carregando') {
+    <p class="estado__carregando" role="status">Carregando horários…</p>
+    <div class="esqueleto" aria-hidden="true">
+      @for (linha of linhasEsqueleto; track linha) {
+        <div class="esqueleto__dia">
+          <div class="esqueleto__titulo"></div>
+          <div class="esqueleto__grade">
+            @for (cartao of [1, 2, 3, 4]; track cartao) {
+              <div class="esqueleto__cartao"></div>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  }
+  @case ('vazio') {
+    <section class="estado__painel" aria-label="Nenhum horário disponível">
+      <h2>Nenhum horário encontrado</h2>
+      <p role="status">Ainda não há horários cadastrados para este serviço.</p>
+      <app-botao
+        rotulo="Atualizar lista"
+        variante="secundario"
+        (acionado)="tentarNovamente.emit()"
+      />
+    </section>
+  }
+  @case ('erro') {
+    <section class="estado__painel" aria-label="Falha ao consultar horários">
+      <app-aviso
+        tipo="erro"
+        titulo="Não foi possível carregar os horários"
+        [descricao]="mensagemErro()"
+      />
+      <app-botao
+        rotulo="Tentar novamente"
+        variante="secundario"
+        (acionado)="tentarNovamente.emit()"
+      />
+    </section>
+  }
+}

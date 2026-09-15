@@ -1,8 +1,92 @@
-* {
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/InterVariable.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+:root {
+  --cor-marca: #0b635e;
+  --cor-marca-escura: #06403c;
+  --cor-marca-borda: #0f7f78;
+  --cor-marca-suave: #e8f5f4;
+  --cor-marca-clara: #9ad6d1;
+  --cor-texto: #16242b;
+  --cor-texto-secundario: #63757e;
+  --cor-pagina: #f7f9fa;
+  --cor-superficie: #fff;
+  --cor-superficie-sutil: #eef2f4;
+  --cor-borda: #dde4e8;
+  --cor-borda-forte: #c3ced4;
+  --cor-info-fundo: #e8f0fc;
+  --cor-info-borda: #a9c4ee;
+  --cor-info-texto: #12488f;
+  --cor-erro-fundo: #fff0ee;
+  --cor-erro-borda: #e5a59d;
+  --cor-erro-texto: #9a2b22;
+  --espaco-2: 2px;
+  --espaco-4: 4px;
+  --espaco-8: 8px;
+  --espaco-13: 13px;
+  --espaco-21: 21px;
+  --espaco-34: 34px;
+  --espaco-55: 55px;
+  --raio-controle: 8px;
+  --raio-cartao: 13px;
+  --largura-conteudo: 1330px;
+}
+
+*,
+*::before,
+*::after {
   box-sizing: border-box;
+}
+
+html {
+  color-scheme: light;
 }
 
 body {
   margin: 0;
-  font-family: system-ui, sans-serif;
+  background: var(--cor-pagina);
+  color: var(--cor-texto);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: var(--cor-marca);
+}
+
+:focus-visible {
+  outline: 2px solid var(--cor-marca-borda);
+  outline-offset: 4px;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
 }

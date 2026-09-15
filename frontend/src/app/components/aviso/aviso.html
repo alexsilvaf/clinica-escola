@@ -1,0 +1,13 @@
+<div
+  class="aviso"
+  [class.aviso--erro]="tipo() === 'erro'"
+  [attr.role]="tipo() === 'erro' ? 'alert' : null"
+>
+  @if (tipo() === 'informacao') {
+    <img class="aviso__icone" src="icons/informacao.svg" width="20" height="20" alt="" />
+  }
+  <div class="aviso__conteudo">
+    <p class="aviso__titulo">{{ titulo() }}</p>
+    <p class="aviso__descricao">{{ descricao() }}</p>
+  </div>
+</div>

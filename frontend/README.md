@@ -12,7 +12,8 @@ e sem `zone.js`; não é necessário adicionar módulos legados para routing.
 - [Ambiente e comandos](#ambiente-e-comandos)
 - [Routing e HTTP](#routing-e-http)
 - [Gerar componentes e serviços](#gerar-componentes-e-serviços)
-- [Strict e testes](#strict-e-testes)
+- [Horários disponíveis — página componentizada e mockada](#horários-disponíveis--página-componentizada-e-mockada)
+- [Strict e aprendizado inicial](#strict-e-aprendizado-inicial)
 - [Referências](#referências)
 
 </details>
@@ -25,14 +26,12 @@ Outras linhas aceitas pelo Angular estão declaradas em `package.json`.
 ```bash
 npm ci
 npm start
-npm test
 npm run build
 npm run format:check
 ```
 
-O frontend estará em `[localhost:4200](http://localhost:4200)`. Para acompanhar testes em tempo
-real, usar `npm run test:watch`. O build de produção fica em
-`dist/clinica-escola-web/browser`.
+O frontend estará em [localhost:4200](http://localhost:4200). O build de produção
+fica em `dist/clinica-escola-web/browser`.
 
 ## Routing e HTTP
 
@@ -51,20 +50,37 @@ não faz parte do build publicado.
 ## Gerar componentes e serviços
 
 ```bash
-npm run ng -- generate component features/estudantes/pages/lista-estudantes
-npm run ng -- generate service features/estudantes/services/estudante
+npm run ng -- generate component components/resumo-agendamento
+npm run ng -- generate component features/agendamento/pages/dados-agendamento
+npm run ng -- generate service features/agendamento/services/agendamento
 ```
 
 O CLI gera componentes standalone com template `.html`, estilo `.scss`
-separados e arquivo de teste. Services, guards e demais artefatos também
-mantêm a geração de testes habilitada. Nomes curtos como `app.ts` e `home.ts`
+separados, sem arquivos de teste. Components, services, guards e demais artefatos
+usam `skipTests: true` no `angular.json`, para não gerar `.spec.ts` nesta etapa.
+Nomes sem o sufixo `.component`, como `app.ts` e `horarios-disponiveis.ts`,
 são a convenção atual do CLI, não uma falha de estrutura.
 
-Organizar funcionalidades em `src/app/features`. Introduzir `core` para
-infraestrutura global (ex.: interceptors, autenticação) e `shared` para
-componentes/pipes realmente reutilizados, quando necessário.
+Organizar funcionalidades em `src/app/features` e os componentes de apresentação
+em `src/app/components`, cada um na sua pasta. Introduzir `core` para
+infraestrutura global (ex.: interceptors, autenticação) quando necessário;
+não duplicar os componentes em uma segunda pasta `shared`.
 
-## Strict e testes
+## Horários disponíveis — página componentizada e mockada
+
+A rota `/` apresenta **Horários disponíveis**, com três dias de horários fictícios,
+cartões selecionáveis, bloqueio dos indisponíveis e estados de carregamento,
+lista vazia e erro. Os componentes ficam separados em `src/app/components`;
+a página em `src/app/features/horarios-disponiveis` compõe a tela e consulta
+`HorariosService`, que ainda usa mocks locais.
+
+Selecionar um horário somente demonstra a interação. Não há reserva, formulário,
+comprovante ou chamada à API de negócio nesta implementação.
+
+Ver a [referência de estrutura, componentes e boas práticas](src/app/components/README.md)
+para entender os inputs, outputs, estado reativo e ponto de integração futura.
+
+## Strict e aprendizado inicial
 
 Conforme solicitado, `tsconfig.json` declara explicitamente:
 
@@ -79,9 +95,10 @@ As verificações independentes de retorno, sobrescrita, fall-through e injeçã
 foram mantidas. `strict: false` reduz a segurança de tipos; reavaliar a opção
 quando a equipe estiver confortável, sem bloquear o desenvolvimento inicial.
 
-O target `test` usa o builder oficial `@angular/build:unit-test` com Vitest/jsdom.
-Os testes iniciais cobrem componente raiz, cliente HTTP, rota inicial lazy-loaded
-e redirecionamento. E2E e lint podem ser adicionados conforme o produto crescer.
+O frontend não possui `.spec.ts`, target `test`, comandos `npm test`/`test:watch`
+ou dependências diretas de Vitest/jsdom. Por decisão didática, os testes
+automatizados do Angular ficam para uma etapa futura. Nesta fase, validar a
+aplicação pelo build e pela conferência das telas e interações no navegador.
 
 ## Referências
 

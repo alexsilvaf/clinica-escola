@@ -1,0 +1,13 @@
+<section class="horario-dia" [attr.aria-labelledby]="tituloId()">
+  <h2 [id]="tituloId()">{{ titulo() }}</h2>
+  <p>Escolha um dos horários disponíveis neste dia.</p>
+  <div class="horario-dia__grade">
+    @for (horario of grupo().horarios; track horario.id) {
+      <app-horario-card
+        [horario]="horario"
+        [selecionado]="horario.id === selecionadoId()"
+        (horarioSelecionado)="horarioSelecionado.emit($event)"
+      />
+    }
+  </div>
+</section>

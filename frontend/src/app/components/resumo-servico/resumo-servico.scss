@@ -1,0 +1,33 @@
+:host {
+  display: block;
+}
+.resumo {
+  padding: var(--espaco-21);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-cartao);
+  background: var(--cor-superficie);
+  h2 {
+    margin: 0 0 var(--espaco-21);
+    font-size: 21px;
+    line-height: 28px;
+  }
+  dl {
+    display: grid;
+    gap: var(--espaco-13);
+    margin: 0;
+  }
+  dt {
+    color: var(--cor-texto-secundario);
+    font-size: 13px;
+  }
+  dd {
+    margin: var(--espaco-4) 0 0;
+    font-size: 15px;
+  }
+  &__nota {
+    margin: var(--espaco-21) 0 0;
+    color: var(--cor-texto-secundario);
+    font-size: 13px;
+    line-height: 20px;
+  }
+}

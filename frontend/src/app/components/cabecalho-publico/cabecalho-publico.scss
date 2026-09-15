@@ -1,0 +1,118 @@
+:host {
+  display: block;
+}
+
+.atalho-conteudo {
+  display: block;
+  padding: var(--espaco-8) var(--espaco-21);
+  background: var(--cor-marca-escura);
+  color: var(--cor-superficie);
+  font-size: 13px;
+  text-decoration: none;
+
+  &:focus-visible {
+    outline-color: var(--cor-superficie);
+    outline-offset: -4px;
+  }
+}
+
+.cabecalho {
+  border-bottom: 1px solid var(--cor-borda);
+  background: var(--cor-superficie);
+}
+
+.cabecalho__conteudo {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-34);
+  max-width: calc(var(--largura-conteudo) + 110px);
+  margin: 0 auto;
+  padding: var(--espaco-13) var(--espaco-55);
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-8);
+  flex-shrink: 0;
+  color: var(--cor-texto);
+  text-decoration: none;
+}
+
+.marca__simbolo {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--raio-controle);
+  background: var(--cor-marca);
+  color: var(--cor-superficie);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.marca__nome {
+  display: flex;
+  flex-direction: column;
+}
+
+.marca__titulo {
+  font-weight: 500;
+}
+
+.marca__instituicao {
+  color: var(--cor-texto-secundario);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+}
+
+.navegacao {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-21);
+  flex: 1;
+
+  a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--cor-texto);
+    font-size: 13px;
+    text-decoration: none;
+
+    &:hover {
+      color: var(--cor-marca);
+      text-decoration: underline;
+    }
+  }
+}
+
+.demonstracao {
+  padding: var(--espaco-4) var(--espaco-13);
+  border: 1px solid var(--cor-borda);
+  border-radius: 999px;
+  color: var(--cor-texto-secundario);
+  font-size: 13px;
+}
+
+@media (max-width: 767px) {
+  .cabecalho__conteudo {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--espaco-8) var(--espaco-13);
+    padding: var(--espaco-13) var(--espaco-21);
+  }
+
+  .navegacao {
+    order: 3;
+    flex-basis: 100%;
+    justify-content: space-between;
+    gap: var(--espaco-13);
+  }
+
+  .demonstracao {
+    padding-inline: var(--espaco-8);
+    font-size: 11px;
+  }
+}

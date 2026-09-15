@@ -8,6 +8,9 @@ Entregar um único fluxo funcional: consultar horários, preencher dados fictíc
 
 São somente três telas. Não criar área administrativa ou portal do estudante neste recorte.
 
+> [!NOTE]
+> Base atual do frontend: a página inicial “Horários disponíveis”, em `features/horarios-disponiveis`, já tem componentes separados e dados mockados para servir de referência aos estudantes. Selecionar um horário não realiza uma reserva; integração com a API, formulário e comprovante ainda não foram implementados. Ver a [estrutura dos componentes](frontend/src/app/components/README.md).
+
 | Tela                 | Rota                  | Ação principal                          |
 | -------------------- | --------------------- | --------------------------------------- |
 | Horários disponíveis | `/`                   | Escolher um horário consultado na API   |
@@ -114,7 +117,7 @@ Regras mínimas:
 - Percorrer as três telas integradas à API, incluindo carregamento, erro e conflito.
 - Verificar navegação direta, envio repetido, rótulos dos campos, foco visível e apresentação básica no celular.
 - Executar em `backend`: `./gradlew test` e `./gradlew build`.
-- Executar em `frontend`: `npm test` e `npm run build`.
+- Executar em `frontend`: `npm run build` e `npm run format:check`; conferir telas e interações no navegador. Não criar `.spec.ts` ou testes automatizados do Angular nesta fase de aprendizado.
 
 **Demonstração de aceite:** consultar horários, reservar com dados fictícios, mostrar o comprovante e provar que a vaga ocupada não aceita outra reserva. Conferir a gravação no H2 local, sem criar uma tela administrativa.
 

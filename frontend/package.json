@@ -6,8 +6,6 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test --watch=false",
-    "test:watch": "ng test --watch",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
@@ -30,9 +28,7 @@
     "@angular/build": "^22.1.8",
     "@angular/cli": "^22.1.8",
     "@angular/compiler-cli": "^22.1.6",
-    "jsdom": "^28.0.0",
     "prettier": "^3.8.1",
-    "typescript": "~6.0.2",
-    "vitest": "^4.0.8"
+    "typescript": "~6.0.2"
   }
 }

@@ -1,0 +1,14 @@
+<nav aria-label="Etapas do agendamento">
+  <ol class="etapas">
+    @for (etapa of etapas; track etapa.numero) {
+      <li
+        class="etapa"
+        [class.etapa--atual]="etapaAtual() === etapa.numero"
+        [attr.aria-current]="etapaAtual() === etapa.numero ? 'step' : null"
+      >
+        <span class="etapa__numero" aria-hidden="true">{{ etapa.numero }}</span>
+        <span>{{ etapa.rotulo }}</span>
+      </li>
+    }
+  </ol>
+</nav>

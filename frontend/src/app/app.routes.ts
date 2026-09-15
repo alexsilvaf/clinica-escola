@@ -4,8 +4,11 @@ export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    title: 'Clínica Escola',
-    loadComponent: () => import('./features/home/home').then((m) => m.Home),
+    title: 'Horários disponíveis | Clínicas-Escola',
+    loadComponent: () =>
+      import('./features/horarios-disponiveis/horarios-disponiveis').then(
+        (m) => m.HorariosDisponiveis,
+      ),
   },
   { path: '**', redirectTo: '' },
 ];

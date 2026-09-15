@@ -1,0 +1,15 @@
+<button
+  class="horario-card"
+  [class.horario-card--selecionado]="selecionado() && disponivel()"
+  type="button"
+  [disabled]="!disponivel()"
+  [attr.aria-label]="nomeAcessivel()"
+  [attr.aria-pressed]="disponivel() ? selecionado() : null"
+  (click)="selecionar()"
+>
+  <span class="horario-card__hora">{{ horario().hora }}</span>
+  <span class="horario-card__detalhe">{{ detalhe() }}</span>
+  @if (selecionado() && disponivel()) {
+    <span class="horario-card__selecao">Selecionado</span>
+  }
+</button>

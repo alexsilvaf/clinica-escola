@@ -1,0 +1,70 @@
+<app-cabecalho-publico />
+<main id="conteudo-principal" tabindex="-1" class="horarios-disponiveis">
+  <app-etapas-agendamento [etapaAtual]="1" />
+  <header class="horarios-disponiveis__titulo">
+    <p class="horarios-disponiveis__contexto">Atendimento à comunidade</p>
+    <h1>Horários disponíveis</h1>
+    <p class="horarios-disponiveis__servico">{{ clinica.servico }} · {{ clinica.nome }}</p>
+  </header>
+  <app-aviso
+    titulo="Esta é uma demonstração com dados fictícios"
+    descricao="Você pode selecionar um horário para experimentar a tela. Não há integração com a API e nenhuma reserva será realizada."
+  />
+  <div class="horarios-disponiveis__colunas">
+    <aside
+      id="informacoes-clinica"
+      class="horarios-disponiveis__informacoes"
+      aria-label="Informações da clínica"
+    >
+      <app-resumo-servico [clinica]="clinica" />
+      <app-acessibilidade-local [recursos]="clinica.acessibilidade" />
+    </aside>
+    <section
+      id="horarios"
+      class="horarios-disponiveis__resultados"
+      aria-label="Lista de horários"
+      [attr.aria-busy]="carregando()"
+    >
+      @if (carregando()) {
+        <app-estado-consulta estado="carregando" />
+      } @else if (erro()) {
+        <app-estado-consulta
+          estado="erro"
+          [mensagemErro]="erro()!"
+          (tentarNovamente)="carregarHorarios()"
+        />
+      } @else if (gruposHorarios().length === 0) {
+        <app-estado-consulta estado="vazio" (tentarNovamente)="carregarHorarios()" />
+      } @else {
+        @for (grupo of gruposHorarios(); track grupo.data) {
+          <app-horario-dia
+            [grupo]="grupo"
+            [selecionadoId]="horarioSelecionado()?.id ?? null"
+            (horarioSelecionado)="selecionarHorario($event)"
+          />
+        }
+        <p class="horarios-disponiveis__legenda">
+          Horários indisponíveis permanecem visíveis, com o motivo indicado, e não podem ser
+          selecionados.
+        </p>
+      }
+      <div
+        class="horarios-disponiveis__selecao"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+      >
+        @if (horarioSelecionado()) {
+          <app-aviso
+            titulo="Horário selecionado nesta demonstração"
+            [descricao]="resumoSelecao()"
+          />
+        }
+      </div>
+      @if (horarioSelecionado()) {
+        <app-botao rotulo="Limpar seleção" variante="secundario" (acionado)="limparSelecao()" />
+      }
+    </section>
+  </div>
+</main>
+<app-rodape-publico [clinica]="clinica" />

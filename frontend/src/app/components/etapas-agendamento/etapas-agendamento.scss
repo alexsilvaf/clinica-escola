@@ -1,0 +1,53 @@
+:host {
+  display: block;
+}
+
+.etapas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espaco-13);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.etapa {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-8);
+  min-height: 44px;
+  padding: var(--espaco-8) var(--espaco-13);
+  border: 2px solid transparent;
+  border-radius: 999px;
+  color: var(--cor-texto-secundario);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.etapa--atual {
+  border-color: var(--cor-marca-borda);
+  background: var(--cor-marca-suave);
+  color: var(--cor-marca);
+}
+
+.etapa__numero {
+  font-weight: 700;
+}
+
+@media (max-width: 767px) {
+  .etapas {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--espaco-4);
+  }
+
+  .etapa {
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: var(--espaco-4);
+    padding: var(--espaco-8) var(--espaco-4);
+    border-radius: var(--raio-controle);
+    text-align: center;
+    font-size: 11px;
+  }
+}

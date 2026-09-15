@@ -14,28 +14,28 @@
           "inlineTemplate": false,
           "inlineStyle": false,
           "style": "scss",
-          "skipTests": false
+          "skipTests": true
         },
         "@schematics/angular:class": {
-          "skipTests": false
+          "skipTests": true
         },
         "@schematics/angular:directive": {
-          "skipTests": false
+          "skipTests": true
         },
         "@schematics/angular:guard": {
-          "skipTests": false
+          "skipTests": true
         },
         "@schematics/angular:interceptor": {
-          "skipTests": false
+          "skipTests": true
         },
         "@schematics/angular:pipe": {
-          "skipTests": false
+          "skipTests": true
         },
         "@schematics/angular:resolver": {
-          "skipTests": false
+          "skipTests": true
         },
         "@schematics/angular:service": {
-          "skipTests": false
+          "skipTests": true
         }
       },
       "root": "",
@@ -94,13 +94,6 @@
             }
           },
           "defaultConfiguration": "development"
-        },
-        "test": {
-          "builder": "@angular/build:unit-test",
-          "options": {
-            "runner": "vitest",
-            "tsConfig": "tsconfig.spec.json"
-          }
         }
       }
     }

@@ -1,0 +1,36 @@
+:host {
+  display: block;
+}
+.rodape {
+  background: var(--cor-marca-escura);
+  color: var(--cor-superficie);
+  &__conteudo {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--espaco-34);
+    max-width: calc(var(--largura-conteudo) + 110px);
+    margin: 0 auto;
+    padding: var(--espaco-21) var(--espaco-55);
+  }
+  h2 {
+    margin: 0 0 var(--espaco-8);
+    font-size: 15px;
+    line-height: 22px;
+  }
+  p {
+    margin: 0;
+    color: var(--cor-marca-clara);
+    font-size: 13px;
+    line-height: 20px;
+  }
+  p + p {
+    margin-top: var(--espaco-8);
+  }
+}
+@media (max-width: 767px) {
+  .rodape__conteudo {
+    grid-template-columns: 1fr;
+    gap: var(--espaco-21);
+    padding: var(--espaco-21);
+  }
+}
