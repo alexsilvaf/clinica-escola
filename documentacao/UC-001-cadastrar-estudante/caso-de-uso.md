@@ -1,5 +1,7 @@
 # Especificação do UC-001
 
+[Início](../../README.md) · [Documentação](../README.md) · [UC-001](README.md) · Caso de uso
+
 ## Gatilho
 
 Um responsável autorizado solicita a criação ou alteração de um estudante.
@@ -36,4 +38,3 @@ Um responsável autorizado solicita a criação ou alteração de um estudante.
 ## Garantia em caso de falha
 
 Nenhum cadastro ou vínculo parcial deve permanecer.
-

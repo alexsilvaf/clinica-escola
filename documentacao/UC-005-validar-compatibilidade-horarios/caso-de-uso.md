@@ -1,5 +1,7 @@
 # Especificação do UC-005
 
+[Início](../../README.md) · [Documentação](../README.md) · [UC-005](README.md) · Caso de uso
+
 ## Gatilho
 
 Um estudante apto solicita os horários disponíveis para sua atividade.
@@ -33,4 +35,3 @@ Um estudante apto solicita os horários disponíveis para sua atividade.
 ## Pós-condições
 
 A opção selecionada ainda não garante reserva; a disponibilidade será novamente validada na confirmação.
-

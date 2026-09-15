@@ -1,12 +1,16 @@
 # UC-007 — Configurar semestre
 
-- **Requisito de origem:** configuração por semestre
-- **Fonte:** desafio 2, requisito mínimo 7, página 8
-- **Ator principal:** Master
-- **Atores secundários:** responsável acadêmico e responsável pela clínica
-- **Prioridade:** Must
-- **Status:** Em refinamento
-- **Validador:** A definir
+[Início](../../README.md) · [Documentação](../README.md)
+
+| Informação          | Valor                                            |
+| ------------------- | ------------------------------------------------ |
+| Requisito de origem | configuração por semestre                        |
+| Fonte               | desafio 2, requisito mínimo 7, página 8          |
+| Ator principal      | Master                                           |
+| Atores secundários  | responsável acadêmico e responsável pela clínica |
+| Prioridade          | Must                                             |
+| Status              | Em refinamento                                   |
+| Validador           | A definir                                        |
 
 ## Objetivo
 
@@ -14,12 +18,14 @@ Configurar estudantes, capacidades, horários, supervisores, limites, disciplina
 
 ## Documentos
 
-- [Caso de uso](caso-de-uso.md)
-- [Histórias de usuário](historias-de-usuario.md)
-- [Requisitos funcionais](requisitos-funcionais.md)
-- [Requisitos não funcionais](requisitos-nao-funcionais.md)
-- [Regras de negócio](regras-de-negocio.md)
-- [Critérios de aceitação](criterios-de-aceitacao.md)
+| Documento                                                 | Conteúdo                                       |
+| --------------------------------------------------------- | ---------------------------------------------- |
+| [Caso de uso](caso-de-uso.md)                             | Fluxos, alternativas e pós-condições           |
+| [Histórias de usuário](historias-de-usuario.md)           | Valor, prioridade e situação das histórias     |
+| [Requisitos funcionais](requisitos-funcionais.md)         | Comportamentos esperados e rastreabilidade     |
+| [Requisitos não funcionais](requisitos-nao-funcionais.md) | Qualidade, segurança e requisitos verificáveis |
+| [Regras de negócio](regras-de-negocio.md)                 | Restrições e políticas do domínio              |
+| [Critérios de aceitação](criterios-de-aceitacao.md)       | Cenários de validação em Dado / Quando / Então |
 
 ## Dependências
 
@@ -33,4 +39,3 @@ Configurar estudantes, capacidades, horários, supervisores, limites, disciplina
 - Haverá clonagem do semestre anterior?
 - Quais mudanças são permitidas após a ativação?
 - Como reservas futuras são tratadas quando a configuração muda?
-

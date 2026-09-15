@@ -1,5 +1,19 @@
 # Clínica Escola — API
 
+[Início](../README.md) · [Frontend](../frontend/README.md) · [Referências adicionais](HELP.md)
+
+<details>
+<summary>Sumário — navegar pelas seções</summary>
+
+- [Stack e identificação](#stack-e-identificação)
+- [Executar e testar](#executar-e-testar)
+- [Configuração local](#configuração-local)
+- [Organização recomendada](#organização-recomendada)
+- [Validações e tabelas](#validações-e-tabelas)
+- [Referências](#referências)
+
+</details>
+
 ## Stack e identificação
 
 - Java **25**, definido no toolchain do Gradle.

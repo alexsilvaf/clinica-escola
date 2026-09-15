@@ -1,5 +1,7 @@
 # Especificação do UC-006
 
+[Início](../../README.md) · [Documentação](../README.md) · [UC-006](README.md) · Caso de uso
+
 ## Gatilho
 
 Um responsável configura recursos/capacidades ou uma operação tenta consumi-los.
@@ -31,4 +33,3 @@ Um responsável configura recursos/capacidades ou uma operação tenta consumi-l
 ## Pós-condições
 
 A ocupação simultânea não ultrapassa consultórios, salas, equipamentos, atendimentos ou estudantes permitidos.
-

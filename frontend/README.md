@@ -1,8 +1,21 @@
 # Clínica Escola — Web
 
+[Início](../README.md) · [Backend](../backend/README.md) · [Documentação](../documentacao/README.md)
+
 Projeto Angular **22.1.6**, com CLI/build **22.1.8**, TypeScript **6.0.x**,
 SCSS e componentes standalone. Usa a configuração moderna sem `AppModule`
 e sem `zone.js`; não é necessário adicionar módulos legados para routing.
+
+<details>
+<summary>Sumário — navegar pelas seções</summary>
+
+- [Ambiente e comandos](#ambiente-e-comandos)
+- [Routing e HTTP](#routing-e-http)
+- [Gerar componentes e serviços](#gerar-componentes-e-serviços)
+- [Strict e testes](#strict-e-testes)
+- [Referências](#referências)
+
+</details>
 
 ## Ambiente e comandos
 
@@ -17,7 +30,7 @@ npm run build
 npm run format:check
 ```
 
-O frontend estará em `http://localhost:4200`. Para acompanhar testes em tempo
+O frontend estará em `[localhost:4200](http://localhost:4200)`. Para acompanhar testes em tempo
 real, usar `npm run test:watch`. O build de produção fica em
 `dist/clinica-escola-web/browser`.
 

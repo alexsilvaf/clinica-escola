@@ -1,12 +1,16 @@
 # UC-001 — Cadastrar estudante
 
-- **Requisito de origem:** cadastro dos estudantes
-- **Fonte:** desafio 2, requisito mínimo 1, página 7
-- **Ator principal:** responsável autorizado
-- **Atores secundários:** estudante e Master
-- **Prioridade:** Must
-- **Status:** Em refinamento
-- **Validador:** A definir
+[Início](../../README.md) · [Documentação](../README.md)
+
+| Informação          | Valor                                   |
+| ------------------- | --------------------------------------- |
+| Requisito de origem | cadastro dos estudantes                 |
+| Fonte               | desafio 2, requisito mínimo 1, página 7 |
+| Ator principal      | responsável autorizado                  |
+| Atores secundários  | estudante e Master                      |
+| Prioridade          | Must                                    |
+| Status              | Em refinamento                          |
+| Validador           | A definir                               |
 
 ## Objetivo
 
@@ -14,12 +18,14 @@ Manter nome, matrícula, curso, período, contato, disciplina ou estágio, dispo
 
 ## Documentos
 
-- [Caso de uso](caso-de-uso.md)
-- [Histórias de usuário](historias-de-usuario.md)
-- [Requisitos funcionais](requisitos-funcionais.md)
-- [Requisitos não funcionais](requisitos-nao-funcionais.md)
-- [Regras de negócio](regras-de-negocio.md)
-- [Critérios de aceitação](criterios-de-aceitacao.md)
+| Documento                                                 | Conteúdo                                       |
+| --------------------------------------------------------- | ---------------------------------------------- |
+| [Caso de uso](caso-de-uso.md)                             | Fluxos, alternativas e pós-condições           |
+| [Histórias de usuário](historias-de-usuario.md)           | Valor, prioridade e situação das histórias     |
+| [Requisitos funcionais](requisitos-funcionais.md)         | Comportamentos esperados e rastreabilidade     |
+| [Requisitos não funcionais](requisitos-nao-funcionais.md) | Qualidade, segurança e requisitos verificáveis |
+| [Regras de negócio](regras-de-negocio.md)                 | Restrições e políticas do domínio              |
+| [Critérios de aceitação](criterios-de-aceitacao.md)       | Cenários de validação em Dado / Quando / Então |
 
 ## Dependências
 
@@ -33,4 +39,3 @@ Manter nome, matrícula, curso, período, contato, disciplina ou estágio, dispo
 - A matrícula é única globalmente ou por unidade?
 - Quais canais de contato são obrigatórios?
 - Como representar disponibilidade recorrente e exceções?
-

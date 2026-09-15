@@ -1,16 +1,38 @@
 # Passo a passo — demonstração mínima de agendamento
 
+[Frontend](frontend/README.md) · [Backend](backend/README.md) · [Documentação completa](documentacao/README.md) · [Design](documentacao/design/README.md) · [Padrão Markdown](documentacao/guia-markdown.md)
+
 ## Objetivo e limite da entrega
 
 Entregar um único fluxo funcional: consultar horários, preencher dados fictícios e receber o comprovante de uma reserva gravada no H2. A API deve impedir reserva de horário indisponível e não ultrapassar sua capacidade.
 
-São somente três telas: **Horários disponíveis**, **Dados do agendamento** e **Comprovante**. Não criar área administrativa ou portal do estudante neste recorte.
+São somente três telas. Não criar área administrativa ou portal do estudante neste recorte.
 
-Esta entrega atende parcialmente ao UC-008. Os demais casos de uso ficam adiados; dados pré-carregados não significam que seus cadastros, aprovações e regras foram implementados. A especificação completa permanece em [documentacao/README.md](documentacao/README.md), e as referências visuais estão em [documentacao/design/telas.md](documentacao/design/telas.md).
+| Tela                 | Rota                  | Ação principal                          |
+| -------------------- | --------------------- | --------------------------------------- |
+| Horários disponíveis | `/`                   | Escolher um horário consultado na API   |
+| Dados do agendamento | `/agendar/:horarioId` | Preencher os dados fictícios e reservar |
+| Comprovante          | `/comprovante`        | Conferir o resultado real da reserva    |
 
-Executar apenas localmente, com dados fictícios e sem disponibilizar o sistema na internet. Não há autenticação nem área restrita neste recorte; antes de qualquer uso real, será necessário implementar os controles de acesso e os requisitos adiados.
+> [!IMPORTANT]
+> Esta entrega atende parcialmente ao UC-008. Os demais casos de uso ficam adiados; dados pré-carregados não significam que seus cadastros, aprovações e regras foram implementados.
+
+A especificação completa permanece em [documentacao/README.md](documentacao/README.md), e as referências visuais estão em [documentacao/design/telas.md](documentacao/design/telas.md).
+
+> [!WARNING]
+> Executar apenas localmente, com dados fictícios e sem disponibilizar o sistema na internet. Não há autenticação nem área restrita neste recorte; antes de qualquer uso real, será necessário implementar os controles de acesso e os requisitos adiados.
 
 ## Ordem de implementação
+
+Checklist do roteiro; os itens abaixo não indicam funcionalidades já concluídas.
+
+- [ ] [1 — Preparar os dados fictícios, sem telas de cadastro](#1--preparar-os-dados-fictícios-sem-telas-de-cadastro)
+- [ ] [2 — Criar somente a persistência necessária](#2--criar-somente-a-persistência-necessária)
+- [ ] [3 — Criar a API de consulta e reserva](#3--criar-a-api-de-consulta-e-reserva)
+- [ ] [4 — Criar a tela “Horários disponíveis”](#4--criar-a-tela-horários-disponíveis)
+- [ ] [5 — Criar a tela “Dados do agendamento”](#5--criar-a-tela-dados-do-agendamento)
+- [ ] [6 — Criar a tela “Comprovante”](#6--criar-a-tela-comprovante)
+- [ ] [7 — Testar e encerrar a entrega](#7--testar-e-encerrar-a-entrega)
 
 ### 1 — Preparar os dados fictícios, sem telas de cadastro
 
@@ -20,7 +42,7 @@ Executar apenas localmente, com dados fictícios e sem disponibilizar o sistema 
 - Incluir um horário marcado como indisponível para testar o bloqueio. Essa marcação é uma simplificação da demonstração, não uma validação das seis condições do produto.
 - Definir os dados iniciais que serão carregados no perfil local. O H2 atual é em memória: reiniciar o backend limpa os agendamentos; o carregamento inicial deverá restaurar a base de demonstração.
 
-**Pronto quando:** as aplicações sobem e os cenários disponível e indisponível estão definidos.
+> **Pronto quando:** as aplicações sobem e os cenários disponível e indisponível estão definidos.
 
 ### 2 — Criar somente a persistência necessária
 
@@ -30,14 +52,16 @@ Executar apenas localmente, com dados fictícios e sem disponibilizar o sistema 
 - Carregar os horários fictícios definidos na etapa anterior somente no perfil local.
 - Manter nomes e organização existentes: backend em `br.com.clinicaescola`, frontend em `features`, e validação de entrada com `jakarta.validation`.
 
-**Pronto quando:** horários e reservas podem ser gravados e consultados pelo backend durante a execução.
+> **Pronto quando:** horários e reservas podem ser gravados e consultados pelo backend durante a execução.
 
 ### 3 — Criar a API de consulta e reserva
 
 Implementar apenas estes endpoints:
 
-- `GET /api/v1/horarios`: retornar horários futuros habilitados com capacidade restante, sem dados de pessoas agendadas.
-- `POST /api/v1/agendamentos`: receber horário, nome, contato e chave de requisição; retornar protocolo e resumo da reserva criada.
+| Método | Endpoint               | Comportamento                                                                                        |
+| ------ | ---------------------- | ---------------------------------------------------------------------------------------------------- |
+| `GET`  | `/api/v1/horarios`     | Retornar horários futuros habilitados com capacidade restante, sem dados de pessoas agendadas.       |
+| `POST` | `/api/v1/agendamentos` | Receber horário, nome, contato e chave de requisição; retornar protocolo e resumo da reserva criada. |
 
 Regras mínimas:
 
@@ -48,7 +72,7 @@ Regras mínimas:
 - Retornar erro de validação para dados inválidos e conflito quando a capacidade tiver acabado.
 - Não implementar listagem pública de agendamentos nem consulta de dados pessoais por ID.
 
-**Pronto quando:** uma chamada cria a reserva real, uma repetição não duplica e duas tentativas diferentes pela última vaga não geram duas reservas.
+> **Pronto quando:** uma chamada cria a reserva real, uma repetição não duplica e duas tentativas diferentes pela última vaga não geram duas reservas.
 
 ### 4 — Criar a tela “Horários disponíveis”
 
@@ -59,7 +83,7 @@ Regras mínimas:
 - Exibir carregamento, nenhum horário disponível e erro com nova tentativa.
 - Não criar busca avançada, múltiplos serviços, calendário, tabela ou paginação.
 
-**Pronto quando:** a tela reflete os dados do backend e permite escolher um horário disponível.
+> **Pronto quando:** a tela reflete os dados do backend e permite escolher um horário disponível.
 
 ### 5 — Criar a tela “Dados do agendamento”
 
@@ -71,7 +95,7 @@ Regras mínimas:
 - Preservar os dados em erro; quando a vaga acabar, explicar o conflito e oferecer retorno aos horários.
 - Tratar acesso direto a horário inválido ou indisponível sem permitir reserva.
 
-**Pronto quando:** o formulário grava no H2 e só avança após a confirmação de sucesso da API.
+> **Pronto quando:** o formulário grava no H2 e só avança após a confirmação de sucesso da API.
 
 ### 6 — Criar a tela “Comprovante”
 
@@ -82,7 +106,7 @@ Regras mínimas:
 - Se a página for aberta diretamente ou os dados forem perdidos, explicar que o comprovante não está disponível e oferecer retorno ao início, sem refazer a reserva automaticamente.
 - Oferecer apenas “Voltar aos horários”; não criar confirmação adicional, cancelamento, PDF ou envio externo.
 
-**Pronto quando:** há comprovante após uma reserva real e retornar aos horários mostra a capacidade atualizada.
+> **Pronto quando:** há comprovante após uma reserva real e retornar aos horários mostra a capacidade atualizada.
 
 ### 7 — Testar e encerrar a entrega
 

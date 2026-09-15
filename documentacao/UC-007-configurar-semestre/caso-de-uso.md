@@ -1,5 +1,7 @@
 # Especificação do UC-007
 
+[Início](../../README.md) · [Documentação](../README.md) · [UC-007](README.md) · Caso de uso
+
 ## Gatilho
 
 O Master precisa preparar ou ativar a operação de um período letivo.
@@ -32,4 +34,3 @@ O Master precisa preparar ou ativar a operação de um período letivo.
 ## Pós-condições
 
 Uma configuração consistente rege os novos cálculos, sem alterar o contexto histórico anterior.
-

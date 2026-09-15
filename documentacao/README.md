@@ -1,11 +1,37 @@
 # Sistema de Gestão das Clínicas-Escola
 
+[Início e recorte atual](../README.md) · [Design](design/README.md) · [Padrão Markdown](guia-markdown.md)
+
 Documentação do Projeto 2 da Hackathon de Ciência da Computação 2026.2 da Faculdade Anhanguera de Guarapari.
 
-> **Status:** descoberta e especificação inicial  
-> **Versão:** 0.2.0  
-> **Última atualização:** 14 de setembro de 2026  
-> **MVP:** 14 a 18 de setembro de 2026
+| Informação         | Valor                              |
+| ------------------ | ---------------------------------- |
+| Status             | descoberta e especificação inicial |
+| Versão             | 0.2.0                              |
+| Última atualização | 14 de setembro de 2026             |
+| MVP                | 14 a 18 de setembro de 2026        |
+
+> [!NOTE]
+> Esta documentação descreve o produto completo. A demonstração reduzida selecionada pela turma está no [README da raiz](../README.md); as nove UCs abaixo não estão todas incluídas nessa entrega.
+
+<details>
+<summary>Sumário — navegar pelas seções</summary>
+
+- [Visão geral](#visão-geral)
+- [Objetivo do Produto](#objetivo-do-produto)
+- [Objetivo da Sprint](#objetivo-da-sprint)
+- [Organização por casos de uso](#organização-por-casos-de-uso)
+- [Fluxo principal do produto](#fluxo-principal-do-produto)
+- [Escopo do MVP](#escopo-do-mvp)
+- [Atores](#atores)
+- [Convenções de identificação](#convenções-de-identificação)
+- [Estados dos artefatos](#estados-dos-artefatos)
+- [Método Scrum](#método-scrum)
+- [Qualidade e referências adotadas](#qualidade-e-referências-adotadas)
+- [Questões prioritárias para os stakeholders](#questões-prioritárias-para-os-stakeholders)
+- [Fonte e referências](#fonte-e-referências)
+
+</details>
 
 ## Visão geral
 
@@ -32,17 +58,17 @@ O sistema não será apenas uma agenda. Um horário somente poderá ser utilizad
 
 Cada requisito mínimo do desafio corresponde a uma pasta de caso de uso. Dentro de cada pasta ficam todos os documentos específicos daquele comportamento.
 
-| Caso de uso | Requisito do desafio | Prioridade | Pasta |
-|---|---|---|---|
-| UC-001 — Cadastrar estudante | Cadastro dos estudantes | Must | [UC-001](UC-001-cadastrar-estudante/README.md) |
-| UC-002 — Validar documentação | Validação obrigatória da documentação | Must | [UC-002](UC-002-validar-documentacao/README.md) |
-| UC-003 — Gerenciar supervisores | Cadastro de professores e preceptores | Must | [UC-003](UC-003-gerenciar-supervisores/README.md) |
-| UC-004 — Controlar capacidade de supervisão | Capacidade de supervisão | Must | [UC-004](UC-004-controlar-capacidade-supervisao/README.md) |
-| UC-005 — Validar compatibilidade de horários | Compatibilidade com horários acadêmicos | Must | [UC-005](UC-005-validar-compatibilidade-horarios/README.md) |
-| UC-006 — Controlar capacidade física | Capacidade física da clínica | Must | [UC-006](UC-006-controlar-capacidade-fisica/README.md) |
-| UC-007 — Configurar semestre | Configuração por semestre | Must | [UC-007](UC-007-configurar-semestre/README.md) |
-| UC-008 — Agendar atendimento | Agendamento pela comunidade | Must | [UC-008](UC-008-agendar-atendimento/README.md) |
-| UC-009 — Administrar sistema | Perfil Master | Must | [UC-009](UC-009-administrar-sistema/README.md) |
+| Caso de uso                                  | Requisito do desafio                    | Prioridade | Pasta                                                       |
+| -------------------------------------------- | --------------------------------------- | ---------- | ----------------------------------------------------------- |
+| UC-001 — Cadastrar estudante                 | Cadastro dos estudantes                 | Must       | [UC-001](UC-001-cadastrar-estudante/README.md)              |
+| UC-002 — Validar documentação                | Validação obrigatória da documentação   | Must       | [UC-002](UC-002-validar-documentacao/README.md)             |
+| UC-003 — Gerenciar supervisores              | Cadastro de professores e preceptores   | Must       | [UC-003](UC-003-gerenciar-supervisores/README.md)           |
+| UC-004 — Controlar capacidade de supervisão  | Capacidade de supervisão                | Must       | [UC-004](UC-004-controlar-capacidade-supervisao/README.md)  |
+| UC-005 — Validar compatibilidade de horários | Compatibilidade com horários acadêmicos | Must       | [UC-005](UC-005-validar-compatibilidade-horarios/README.md) |
+| UC-006 — Controlar capacidade física         | Capacidade física da clínica            | Must       | [UC-006](UC-006-controlar-capacidade-fisica/README.md)      |
+| UC-007 — Configurar semestre                 | Configuração por semestre               | Must       | [UC-007](UC-007-configurar-semestre/README.md)              |
+| UC-008 — Agendar atendimento                 | Agendamento pela comunidade             | Must       | [UC-008](UC-008-agendar-atendimento/README.md)              |
+| UC-009 — Administrar sistema                 | Perfil Master                           | Must       | [UC-009](UC-009-administrar-sistema/README.md)              |
 
 O protótipo de interface correspondente a estes casos de uso está em [design/README.md](design/README.md).
 
@@ -61,15 +87,15 @@ UC-NNN-nome-do-caso/
 └── criterios-de-aceitacao.md
 ```
 
-| Documento | Finalidade |
-|---|---|
-| `README.md` | índice, objetivo, fonte, atores, dependências e pendências da UC |
-| `caso-de-uso.md` | fluxo principal, alternativas, exceções e pós-condições |
-| `historias-de-usuario.md` | valor esperado na linguagem dos usuários e ordem no backlog |
-| `requisitos-funcionais.md` | comportamentos obrigatórios e rastreáveis da UC |
+| Documento                      | Finalidade                                                                |
+| ------------------------------ | ------------------------------------------------------------------------- |
+| `README.md`                    | índice, objetivo, fonte, atores, dependências e pendências da UC          |
+| `caso-de-uso.md`               | fluxo principal, alternativas, exceções e pós-condições                   |
+| `historias-de-usuario.md`      | valor esperado na linguagem dos usuários e ordem no backlog               |
+| `requisitos-funcionais.md`     | comportamentos obrigatórios e rastreáveis da UC                           |
 | `requisitos-nao-funcionais.md` | qualidade, segurança, desempenho, acessibilidade e privacidade aplicáveis |
-| `regras-de-negocio.md` | invariantes e políticas do domínio |
-| `criterios-de-aceitacao.md` | cenários verificáveis em `Dado/Quando/Então` |
+| `regras-de-negocio.md`         | invariantes e políticas do domínio                                        |
+| `criterios-de-aceitacao.md`    | cenários verificáveis em `Dado/Quando/Então`                              |
 
 ## Fluxo principal do produto
 
@@ -117,28 +143,28 @@ Os diferenciais somente serão iniciados após a conclusão do caminho crítico 
 
 ## Atores
 
-| Ator | Responsabilidade principal |
-|---|---|
-| Estudante | manter dados, disponibilidade e documentação e participar de horários elegíveis |
-| Professor | analisar documentos e supervisionar estudantes conforme sua capacidade |
-| Preceptor | supervisionar estudantes dentro de sua área e disponibilidade |
-| Comunidade | consultar, agendar, confirmar e cancelar o próprio atendimento |
-| Responsável pela clínica | manter a operação, os recursos e as capacidades sob sua responsabilidade |
-| Master | administrar usuários, permissões, catálogos e configurações semestrais |
+| Ator                     | Responsabilidade principal                                                      |
+| ------------------------ | ------------------------------------------------------------------------------- |
+| Estudante                | manter dados, disponibilidade e documentação e participar de horários elegíveis |
+| Professor                | analisar documentos e supervisionar estudantes conforme sua capacidade          |
+| Preceptor                | supervisionar estudantes dentro de sua área e disponibilidade                   |
+| Comunidade               | consultar, agendar, confirmar e cancelar o próprio atendimento                  |
+| Responsável pela clínica | manter a operação, os recursos e as capacidades sob sua responsabilidade        |
+| Master                   | administrar usuários, permissões, catálogos e configurações semestrais          |
 
 A matriz final de permissões ainda precisa ser validada. Nenhum papel deve receber acesso irrestrito apenas por conveniência.
 
 ## Convenções de identificação
 
-| Prefixo | Artefato | Exemplo |
-|---|---|---|
-| `UC` | caso de uso | `UC-008` Agendar atendimento |
-| `US` | história de usuário | `US-008.01` Consultar horários disponíveis |
-| `RF` | requisito funcional | `RF-008.03` Criar agendamento |
-| `RNF` | requisito não funcional | `RNF-008.CON-01` Concorrência da reserva |
-| `RN` | regra de negócio | `RN-008.02` Revalidar capacidade |
-| `CA` | critério de aceitação | `CA-008.03-01` Criar reserva válida |
-| `CT` | caso de teste futuro | `CT-008.03-01` Concorrência pela última vaga |
+| Prefixo | Artefato                | Exemplo                                      |
+| ------- | ----------------------- | -------------------------------------------- |
+| `UC`    | caso de uso             | `UC-008` Agendar atendimento                 |
+| `US`    | história de usuário     | `US-008.01` Consultar horários disponíveis   |
+| `RF`    | requisito funcional     | `RF-008.03` Criar agendamento                |
+| `RNF`   | requisito não funcional | `RNF-008.CON-01` Concorrência da reserva     |
+| `RN`    | regra de negócio        | `RN-008.02` Revalidar capacidade             |
+| `CA`    | critério de aceitação   | `CA-008.03-01` Criar reserva válida          |
+| `CT`    | caso de teste futuro    | `CT-008.03-01` Concorrência pela última vaga |
 
 Os identificadores são imutáveis e nunca devem ser reutilizados, mesmo quando um item for cancelado.
 
@@ -157,12 +183,12 @@ Os identificadores são imutáveis e nunca devem ser reutilizados, mesmo quando 
 
 A Hackathon será tratada como uma Sprint única de cinco dias. As atividades diárias do edital são etapas e checkpoints dentro da Sprint, não cinco Sprints independentes.
 
-| Data | Foco | Resultado esperado |
-|---|---|---|
-| 14/09 | Sprint Planning e descoberta | objetivo, atores, UCs, riscos e backlog ordenado |
-| 15/09 | projeto da solução | protótipos, dados, arquitetura e refinamento |
-| 16/09 | desenvolvimento | primeiro caminho executável de ponta a ponta |
-| 17/09 | testes e aperfeiçoamento | evidências, correções, documentação e ensaio |
+| Data  | Foco                          | Resultado esperado                                 |
+| ----- | ----------------------------- | -------------------------------------------------- |
+| 14/09 | Sprint Planning e descoberta  | objetivo, atores, UCs, riscos e backlog ordenado   |
+| 15/09 | projeto da solução            | protótipos, dados, arquitetura e refinamento       |
+| 16/09 | desenvolvimento               | primeiro caminho executável de ponta a ponta       |
+| 17/09 | testes e aperfeiçoamento      | evidências, correções, documentação e ensaio       |
 | 18/09 | Sprint Review e retrospectiva | incremento demonstrado, feedback e próximos passos |
 
 Responsabilidades a preencher pela equipe:
@@ -222,4 +248,3 @@ Documentos e informações de atendimentos podem conter dados pessoais sensívei
 - [OWASP API Security Top 10 — 2023](https://api-security.owasp.org/editions/2023/en/0x00-header/).
 - [Lei nº 13.709/2018 — LGPD](https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709compilado.htm).
 - [Guia da ANPD sobre segurança da informação](https://www.gov.br/anpd/pt-br/documentos-e-publicacoes/guia-vf.pdf).
-

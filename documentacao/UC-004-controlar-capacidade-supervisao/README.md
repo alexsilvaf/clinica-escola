@@ -1,12 +1,16 @@
 # UC-004 — Controlar capacidade de supervisão
 
-- **Requisito de origem:** capacidade de supervisão
-- **Fonte:** desafio 2, requisito mínimo 4, página 7
-- **Ator principal:** sistema
-- **Interessados:** responsável pela clínica, supervisor e estudante
-- **Prioridade:** Must
-- **Status:** Em refinamento
-- **Validador:** A definir
+[Início](../../README.md) · [Documentação](../README.md)
+
+| Informação          | Valor                                            |
+| ------------------- | ------------------------------------------------ |
+| Requisito de origem | capacidade de supervisão                         |
+| Fonte               | desafio 2, requisito mínimo 4, página 7          |
+| Ator principal      | sistema                                          |
+| Interessados        | responsável pela clínica, supervisor e estudante |
+| Prioridade          | Must                                             |
+| Status              | Em refinamento                                   |
+| Validador           | A definir                                        |
 
 ## Objetivo
 
@@ -14,12 +18,14 @@ Impedir novas inscrições quando o limite de estudantes supervisionados simulta
 
 ## Documentos
 
-- [Caso de uso](caso-de-uso.md)
-- [Histórias de usuário](historias-de-usuario.md)
-- [Requisitos funcionais](requisitos-funcionais.md)
-- [Requisitos não funcionais](requisitos-nao-funcionais.md)
-- [Regras de negócio](regras-de-negocio.md)
-- [Critérios de aceitação](criterios-de-aceitacao.md)
+| Documento                                                 | Conteúdo                                       |
+| --------------------------------------------------------- | ---------------------------------------------- |
+| [Caso de uso](caso-de-uso.md)                             | Fluxos, alternativas e pós-condições           |
+| [Histórias de usuário](historias-de-usuario.md)           | Valor, prioridade e situação das histórias     |
+| [Requisitos funcionais](requisitos-funcionais.md)         | Comportamentos esperados e rastreabilidade     |
+| [Requisitos não funcionais](requisitos-nao-funcionais.md) | Qualidade, segurança e requisitos verificáveis |
+| [Regras de negócio](regras-de-negocio.md)                 | Restrições e políticas do domínio              |
+| [Critérios de aceitação](criterios-de-aceitacao.md)       | Cenários de validação em Dado / Quando / Então |
 
 ## Dependências
 
@@ -32,4 +38,3 @@ Impedir novas inscrições quando o limite de estudantes supervisionados simulta
 - Quais estados de inscrição consomem capacidade?
 - O limite é individual ou pode pertencer a uma equipe?
 - Como substituição e sobreposição parcial são calculadas?
-
