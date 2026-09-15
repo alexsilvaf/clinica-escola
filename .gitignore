@@ -1,0 +1,57 @@
+# Backend: Gradle e arquivos compilados
+.gradle/
+build/
+out/
+*.class
+
+# Frontend: dependências, builds e caches
+node_modules/
+dist/
+out-tsc/
+.angular/
+.sass-cache/
+coverage/
+/tmp/
+
+# Banco H2 e dados locais
+/backend/data/
+*.mv.db
+*.trace.db
+
+# Link local do protótipo: manter as explicações de design versionadas
+/documentacao/design/figma.local.md
+
+# Variáveis de ambiente: manter somente modelos sem segredos
+.env
+.env.*
+!.env.example
+!.env.*.example
+!.env.template
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# IDEs e histórico local
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+.history/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+Desktop.ini
+*~
+*.swp
+*.swo
