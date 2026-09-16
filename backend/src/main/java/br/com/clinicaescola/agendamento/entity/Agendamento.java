@@ -49,13 +49,13 @@ public class Agendamento {
 
 	@NotBlank
 	@Size(min = 2, max = 120)
-	@Column(name = "nome_ficticio", nullable = false, length = 120)
-	private String nomeFicticio;
+	@Column(name = "nome", nullable = false, length = 120)
+	private String nome;
 
 	@NotBlank
 	@Size(min = 3, max = 160)
-	@Column(name = "contato_ficticio", nullable = false, length = 160)
-	private String contatoFicticio;
+	@Column(name = "contato", nullable = false, length = 160)
+	private String contato;
 
 	@NotBlank
 	@Size(max = 80)
@@ -64,7 +64,7 @@ public class Agendamento {
 
 	@NotNull
 	@Column(name = "reservado_em", nullable = false)
-	private LocalDateTime reservadoEm;
+	private LocalDateTime criadoEm;
 
 	@NotBlank
 	@Size(max = 120)
