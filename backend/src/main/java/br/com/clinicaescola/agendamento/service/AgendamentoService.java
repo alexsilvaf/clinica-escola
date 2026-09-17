@@ -27,7 +27,6 @@ public class AgendamentoService {
 
 	@Transactional
 	public AgendamentoResponse reservar(AgendamentoRequest request) {
-		// idempotência: repetir a mesma chave de requisição não cria uma segunda reserva
 		var existente = agendamentoRepository.findByChaveRequisicao(request.getChaveRequisicao());
 		if (existente.isPresent()) {
 			return toResponse(existente.get());
