@@ -1,0 +1,47 @@
+.text-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    flex: 1 0 0;
+}
+
+.text-label {
+    align-self: stretch;
+    color: var(--semantico-texto-primario, #16242B);
+
+    /* Corpo/13 Medio */
+    font-family: Inter;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    /* 153.846% */
+}
+
+.text-input {
+    display: flex;
+    height: 40px;
+    min-height: 40px;
+    padding: 0 13px;
+    align-items: center;
+    gap: 8px;
+    align-self: stretch;
+
+    border-radius: var(--raio-8, 8px);
+    border: 1px solid var(--semantico-borda-forte, #C3CED4);
+    background: var(--semantico-fundo-superficie, #FFF);
+
+    color: var(--cor-texto);
+    text-overflow: ellipsis;
+
+    /* Corpo/16 Regular */
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    /* 150% */
+
+    outline: none;
+}

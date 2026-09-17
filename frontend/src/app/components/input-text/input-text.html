@@ -1,0 +1,5 @@
+<div class="text-layout">
+    <label class="text-label" for="{{id}}">{{label}}</label>
+    <input class="text-input" type="text" [placeholder]="placeholder" [ngModel]="value"
+        (ngModelChange)="valueChange.emit($event)" />
+</div>
