@@ -9,7 +9,8 @@ e sem `zone.js`; não é necessário adicionar módulos legados para routing.
 <details>
 <summary>Sumário — navegar pelas seções</summary>
 
-- [Ambiente e comandos](#ambiente-e-comandos)
+- [Executar o frontend](#executar-o-frontend)
+- [Comandos úteis](#comandos-úteis)
 - [Routing e HTTP](#routing-e-http)
 - [Gerar componentes e serviços](#gerar-componentes-e-serviços)
 - [Horários disponíveis — página componentizada e mockada](#horários-disponíveis--página-componentizada-e-mockada)
@@ -18,20 +19,95 @@ e sem `zone.js`; não é necessário adicionar módulos legados para routing.
 
 </details>
 
-## Ambiente e comandos
+## Executar o frontend
 
-Usar Node.js 24.15.0 ou superior da linha 24 (ver `.nvmrc` e `engines`).
-Outras linhas aceitas pelo Angular estão declaradas em `package.json`.
+### 1 — Instalar e verificar o Git
+
+Baixe o [Git](https://git-scm.com/downloads), conclua a instalação e abra um
+novo terminal. Confirme que o comando está disponível:
+
+```bash
+git --version
+```
+
+### 2 — Instalar e verificar o Node.js
+
+Instale o [Node.js](https://nodejs.org/) **24.15.0 ou superior da linha 24**,
+linha selecionada pelo arquivo `.nvmrc` e versão mínima definida no campo
+`engines` do `package.json`. Esse campo também declara as outras linhas
+compatíveis.
+
+Após instalar, abra um novo terminal e verifique o Node.js e o npm:
+
+```bash
+node --version
+npm --version
+```
+
+O primeiro comando deve mostrar `v24.15.0` ou uma versão mais recente da linha 24. O npm é instalado junto com o Node.js.
+
+### 3 — Baixar o projeto
+
+Escolha uma pasta de trabalho e execute:
+
+```bash
+git clone https://github.com/alexsilvaf/clinica-escola.git
+cd clinica-escola/frontend
+```
+
+Se o projeto já estiver baixado, basta abrir o terminal na pasta `frontend`.
+
+### 4 — Instalar as dependências
 
 ```bash
 npm ci
+```
+
+Como o projeto possui `package-lock.json`, `npm ci` é o comando recomendado
+para obter uma instalação limpa e reproduzível. Use `npm install` quando for
+adicionar, remover ou atualizar uma dependência e precisar alterar o lockfile.
+
+### 5 — Iniciar o servidor de desenvolvimento
+
+```bash
+npm start
+```
+
+Quando o terminal indicar que a compilação terminou, abra
+[localhost:4200](http://localhost:4200). O servidor acompanha alterações nos
+arquivos e recompila a aplicação automaticamente. Para encerrá-lo, pressione
+`Ctrl+C`.
+
+Para usar as chamadas `/api`, mantenha também o backend em execução conforme o
+[passo a passo da API](../backend/README.md#executar-o-backend). O proxy local
+encaminha essas chamadas para `http://localhost:8080`.
+
+## Comandos úteis
+
+Execute os comandos abaixo dentro da pasta `frontend`:
+
+```bash
 npm start
 npm run build
 npm run format:check
 ```
 
-O frontend estará em [localhost:4200](http://localhost:4200). O build de produção
-fica em `dist/clinica-escola-web/browser`.
+- `npm start`: inicia o ambiente local;
+- `npm run build`: gera o build de produção em
+  `dist/clinica-escola-web/browser`;
+- `npm run format:check`: verifica a formatação sem alterar os arquivos.
+
+Se `node`, `npm` ou `git` não for reconhecido, feche e reabra o terminal após a
+instalação e confirme que o programa foi adicionado ao `PATH`. Se houver erro de
+versão do Node.js, instale a versão informada na etapa 2 e repita `npm ci`.
+
+Se o PowerShell informar que `npm.ps1` não pode ser executado por causa da
+política de execução, use os executáveis do Windows sem alterar essa política:
+
+```powershell
+npm.cmd ci
+npm.cmd start
+```
 
 ## Routing e HTTP
 

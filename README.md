@@ -2,6 +2,63 @@
 
 [Frontend](frontend/README.md) · [Backend](backend/README.md) · [Documentação completa](documentacao/README.md) · [Design](documentacao/design/README.md) · [Padrão Markdown](documentacao/guia-markdown.md)
 
+## Como executar os ambientes
+
+### Pré-requisitos
+
+Instale e valide no terminal:
+
+- [Git](https://git-scm.com/downloads): `git --version`;
+- [Node.js](https://nodejs.org/) **24.15.0 ou superior da linha 24**:
+  `node --version` e `npm --version`;
+- um JDK **25**: `java --version`.
+
+O Gradle não precisa ser instalado separadamente. O repositório inclui o
+Gradle Wrapper, que baixa e usa automaticamente a versão correta.
+
+### 1 — Baixar o projeto
+
+```bash
+git clone https://github.com/alexsilvaf/clinica-escola.git
+cd clinica-escola
+```
+
+Se o repositório já estiver no computador, entre na pasta dele e execute
+`git pull` para obter as alterações mais recentes.
+
+### 2 — Iniciar o backend
+
+Abra um terminal na raiz do projeto e execute:
+
+```powershell
+cd backend
+.\gradlew.bat bootRun
+```
+
+No macOS ou Linux, use `./gradlew bootRun`. Aguarde a aplicação iniciar; a API
+ficará disponível em [localhost:8080](http://localhost:8080). Instruções sobre
+o JDK, `JAVA_HOME`, Gradle, testes e H2 estão no
+[README do backend](backend/README.md).
+
+### 3 — Iniciar o frontend
+
+Mantenha o backend em execução, abra **outro terminal** na raiz do projeto e
+execute:
+
+```bash
+cd frontend
+npm ci
+npm start
+```
+
+Abra [localhost:4200](http://localhost:4200) no navegador. O comando `npm ci`
+instala exatamente as versões registradas no `package-lock.json`; em caso de
+alteração intencional das dependências, use `npm install`. Consulte o
+[README do frontend](frontend/README.md) para o passo a passo detalhado.
+
+Para encerrar qualquer ambiente, volte ao terminal correspondente e pressione
+`Ctrl+C`.
+
 ## Objetivo e limite da entrega
 
 Entregar um único fluxo funcional: consultar horários, preencher dados fictícios e receber o comprovante de uma reserva gravada no H2. A API deve impedir reserva de horário indisponível e não ultrapassar sua capacidade.

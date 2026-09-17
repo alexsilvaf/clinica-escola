@@ -6,7 +6,8 @@
 <summary>Sumário — navegar pelas seções</summary>
 
 - [Stack e identificação](#stack-e-identificação)
-- [Executar e testar](#executar-e-testar)
+- [Executar o backend](#executar-o-backend)
+- [Testar e gerar o artefato](#testar-e-gerar-o-artefato)
 - [Configuração local](#configuração-local)
 - [Organização recomendada](#organização-recomendada)
 - [Validações e tabelas](#validações-e-tabelas)
@@ -33,10 +34,108 @@ titularidade de `clinicaescola.com.br`.
 As versões de Hibernate, H2, Lombok e Validator são gerenciadas pelo BOM do
 Spring Boot; evitar versões avulsas sem necessidade.
 
-## Executar e testar
+## Executar o backend
+
+### 1 — Instalar e verificar o Git
+
+Baixe o [Git](https://git-scm.com/downloads), conclua a instalação e abra um
+novo terminal. Confirme que o comando está disponível:
+
+```bash
+git --version
+```
+
+### 2 — Instalar o JDK 25
+
+Instale um **JDK 25** — não apenas um JRE — usando uma distribuição como
+[Eclipse Temurin](https://adoptium.net/) ou [Oracle JDK](https://www.oracle.com/java/technologies/downloads/).
+
+No Windows, durante a instalação, habilite as opções para definir `JAVA_HOME`
+e adicionar o Java ao `PATH`, quando disponíveis. Se precisar configurar
+manualmente:
+
+1. abra **Editar as variáveis de ambiente do sistema**;
+2. em **Variáveis de Ambiente**, crie `JAVA_HOME` apontando para a pasta do JDK
+   25, sem incluir a subpasta `bin`;
+3. edite a variável `Path` e adicione `%JAVA_HOME%\bin`;
+4. feche e abra novamente o terminal.
+
+No macOS ou Linux, configure `JAVA_HOME` de acordo com o gerenciador de pacotes
+ou a distribuição do JDK utilizada e adicione `$JAVA_HOME/bin` ao `PATH`.
+
+Verifique a configuração:
+
+```bash
+java --version
+javac --version
+```
+
+Os dois comandos devem indicar a versão 25. No PowerShell, também é possível
+conferir o caminho configurado com `echo $env:JAVA_HOME`.
+
+### 3 — Baixar o projeto
+
+Escolha uma pasta de trabalho e execute:
+
+```bash
+git clone https://github.com/alexsilvaf/clinica-escola.git
+cd clinica-escola/backend
+```
+
+Se o projeto já estiver baixado, basta abrir o terminal na pasta `backend`.
+
+### 4 — Verificar o Gradle Wrapper
+
+Não é necessário instalar o Gradle globalmente. O projeto contém o Gradle
+Wrapper e fixa a versão **9.7.1**. Na primeira execução, ele baixará essa versão,
+portanto é necessário estar conectado à internet.
+
+No Windows (Prompt de Comando ou PowerShell):
+
+```powershell
+.\gradlew.bat --version
+```
+
+No macOS ou Linux:
+
+```bash
+./gradlew --version
+```
+
+O resultado deve mostrar Gradle 9.7.1 e JVM 25. Se a JVM exibida não for a 25,
+revise `JAVA_HOME` e o `PATH` antes de continuar.
+
+### 5 — Iniciar a API
+
+No Windows:
+
+```powershell
+.\gradlew.bat bootRun
+```
+
+No macOS ou Linux:
 
 ```bash
 ./gradlew bootRun
+```
+
+Aguarde a mensagem de inicialização e acesse
+[localhost:8080](http://localhost:8080). Para encerrar a API, pressione
+`Ctrl+C`. O primeiro build também baixa as dependências do projeto e pode levar
+mais tempo.
+
+## Testar e gerar o artefato
+
+Execute dentro da pasta `backend`. No Windows:
+
+```powershell
+.\gradlew.bat test
+.\gradlew.bat clean build
+```
+
+No macOS ou Linux:
+
+```bash
 ./gradlew test
 ./gradlew clean build
 ```
