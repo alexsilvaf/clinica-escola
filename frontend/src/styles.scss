@@ -84,11 +84,7 @@ img {
 }
 
 .card {
-  display: flex;
   padding: 21px;
-  align-items: flex-start;
-  gap: 13px;
-  align-self: stretch;
   border-radius: var(--raio-13, 13px);
   border: 1px solid var(--semantico-borda-padrao, #DDE4E8);
   background: var(--semantico-fundo-superficie, #FFF);

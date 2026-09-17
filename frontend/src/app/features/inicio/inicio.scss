@@ -4,6 +4,10 @@ main {
     padding: 2rem 1rem;
 }
 
+.card {
+    display: flex;
+}
+
 .cabecalho {
     border-bottom: 1px solid var(--cor-borda);
     background: var(--cor-superficie);
