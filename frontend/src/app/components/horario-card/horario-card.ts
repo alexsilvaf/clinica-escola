@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
 import { Horario } from '../../models/horario.model';
 import { formatarDataLocal } from '../../utils/data.util';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-horario-card',
@@ -8,6 +9,7 @@ import { formatarDataLocal } from '../../utils/data.util';
   templateUrl: './horario-card.html',
   styleUrl: './horario-card.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [RouterLink],
 })
 export class HorarioCard {
   readonly horario = input.required<Horario>();

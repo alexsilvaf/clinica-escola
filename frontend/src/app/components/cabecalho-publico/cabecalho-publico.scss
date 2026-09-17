@@ -2,6 +2,10 @@
   display: block;
 }
 
+.meu-agendamento {
+  --botao-border: none;
+}
+
 .atalho-conteudo {
   display: block;
   padding: var(--espaco-8) var(--espaco-21);
@@ -40,15 +44,10 @@
 }
 
 .marca__simbolo {
-  display: grid;
-  place-items: center;
-  width: 32px;
+  display: block;
+  flex-shrink: 0;
+  width: auto;
   height: 32px;
-  border-radius: var(--raio-controle);
-  background: var(--cor-marca);
-  color: var(--cor-superficie);
-  font-size: 13px;
-  font-weight: 600;
 }
 
 .marca__nome {
@@ -109,10 +108,5 @@
     flex-basis: 100%;
     justify-content: space-between;
     gap: var(--espaco-13);
-  }
-
-  .demonstracao {
-    padding-inline: var(--espaco-8);
-    font-size: 11px;
   }
 }

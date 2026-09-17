@@ -24,7 +24,7 @@
   --cor-info-texto: #12488f;
   --cor-erro-fundo: #fff0ee;
   --cor-erro-borda: #e5a59d;
-  --cor-erro-texto: #9a2b22;
+  --cor-erro-texto: #A32118;
   --espaco-2: 2px;
   --espaco-4: 4px;
   --espaco-8: 8px;
@@ -34,6 +34,7 @@
   --espaco-55: 55px;
   --raio-controle: 8px;
   --raio-cartao: 13px;
+  --sombra-flutuante: 0 8px 24px -4px rgb(22 36 43 / 14%);
   --largura-conteudo: 1330px;
 }
 
@@ -82,7 +83,19 @@ img {
   max-width: 100%;
 }
 
+.card {
+  display: flex;
+  padding: 21px;
+  align-items: flex-start;
+  gap: 13px;
+  align-self: stretch;
+  border-radius: var(--raio-13, 13px);
+  border: 1px solid var(--semantico-borda-padrao, #DDE4E8);
+  background: var(--semantico-fundo-superficie, #FFF);
+}
+
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {

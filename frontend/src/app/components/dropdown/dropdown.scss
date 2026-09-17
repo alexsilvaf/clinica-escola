@@ -1,0 +1,141 @@
+:host {
+  display: block;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-4);
+}
+
+.campo__rotulo {
+  color: var(--cor-texto);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.campo__controle {
+  position: relative;
+}
+
+.campo__caixa {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-8);
+  width: 100%;
+  height: 40px;
+  min-height: 40px;
+  padding: 0 var(--espaco-13);
+  border: 1px solid var(--cor-borda-forte);
+  border-radius: var(--raio-controle);
+  background: var(--cor-superficie);
+  color: var(--cor-texto);
+  font-size: 16px;
+  line-height: 24px;
+  text-align: left;
+  cursor: pointer;
+
+  // Foco do desenho: borda de 2 px. O traço interno evita o pulo de 1 px no conteúdo.
+  &:focus-visible {
+    border-color: var(--cor-marca-borda);
+    box-shadow: inset 0 0 0 1px var(--cor-marca-borda);
+    outline: none;
+  }
+
+  &:disabled {
+    border-color: var(--cor-borda);
+    background: var(--cor-superficie-sutil);
+    color: var(--cor-texto-secundario);
+    cursor: not-allowed;
+  }
+}
+
+.campo--erro .campo__caixa {
+  border-color: var(--cor-erro-texto);
+  box-shadow: inset 0 0 0 1px var(--cor-erro-texto);
+}
+
+.campo__valor {
+  flex: 1 0 0;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.campo__valor--vazio {
+  color: var(--cor-texto-secundario);
+}
+
+.campo__seta {
+  flex-shrink: 0;
+}
+
+.campo__lista {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + var(--espaco-4));
+  right: 0;
+  left: 0;
+  max-height: 280px;
+  margin: 0;
+  padding: var(--espaco-4) 0;
+  overflow-y: auto;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-controle);
+  background: var(--cor-superficie);
+  box-shadow: var(--sombra-flutuante);
+  list-style: none;
+}
+
+.campo__opcao {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-8);
+  padding: var(--espaco-8) var(--espaco-13);
+  color: var(--cor-texto);
+  font-size: 16px;
+  line-height: 24px;
+  cursor: pointer;
+}
+
+.campo__opcao--escolhida {
+  background: var(--cor-marca-suave);
+  color: var(--cor-marca);
+}
+
+// Opção sob o cursor ou percorrida pelo teclado (condição Foco no desenho).
+.campo__opcao--ativa {
+  background: var(--cor-superficie-sutil);
+}
+
+.campo__opcao-rotulo {
+  flex: 1 0 0;
+  min-width: 0;
+}
+
+.campo__marca {
+  flex-shrink: 0;
+  font-weight: 500;
+}
+
+.campo__vazio {
+  padding: var(--espaco-8) var(--espaco-13);
+  color: var(--cor-texto-secundario);
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.campo__apoio {
+  margin: 0;
+  color: var(--cor-texto-secundario);
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.campo--erro .campo__apoio {
+  color: var(--cor-erro-texto);
+}

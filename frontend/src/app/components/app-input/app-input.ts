@@ -1,16 +1,17 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, input, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   imports: [FormsModule],
-  selector: 'app-input-text',
-  styleUrl: './input-text.scss',
-  templateUrl: './input-text.html',
+  selector: 'app-input',
+  styleUrl: './app-input.scss',
+  templateUrl: './app-input.html',
 })
-export class InputText {
+export class AppInput {
   @Input() id: string = "";
   @Input() label: string = "";
   @Input() placeholder: string = "";
+  @Input() tipo: 'text' | 'number' = 'text';
 
   @Input() value: string = "";
   @Output() valueChange = new EventEmitter<string>();

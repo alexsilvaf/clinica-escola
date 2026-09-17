@@ -1,0 +1,63 @@
+<div class="campo" [class.campo--erro]="erro" (focusout)="aoSairDoFoco($event)">
+  <label class="campo__rotulo" [id]="id + '-rotulo'" [for]="id">{{ label }}</label>
+
+  <div class="campo__controle">
+    <button
+      class="campo__caixa"
+      type="button"
+      role="combobox"
+      [id]="id"
+      [disabled]="desabilitado"
+      [attr.aria-labelledby]="id + '-rotulo'"
+      [attr.aria-describedby]="apoio ? id + '-apoio' : null"
+      [attr.aria-expanded]="aberto"
+      [attr.aria-controls]="id + '-lista'"
+      [attr.aria-activedescendant]="
+        aberto && indiceAtivo >= 0 ? id + '-opcao-' + indiceAtivo : null
+      "
+      [attr.aria-invalid]="erro ? 'true' : null"
+      (click)="alternar()"
+      (keydown)="aoTeclar($event)"
+    >
+      <span class="campo__valor" [class.campo__valor--vazio]="!opcaoEscolhida">{{
+        textoDoValor
+      }}</span>
+      <img class="campo__seta" src="icons/abrir-opcoes.svg" width="20" height="20" alt="" />
+    </button>
+
+    @if (aberto) {
+      <ul
+        #lista
+        class="campo__lista"
+        role="listbox"
+        [id]="id + '-lista'"
+        [attr.aria-labelledby]="id + '-rotulo'"
+        (mousedown)="$event.preventDefault()"
+      >
+        @for (opcao of options; track opcao.value; let i = $index) {
+          <li
+            class="campo__opcao"
+            role="option"
+            [id]="id + '-opcao-' + i"
+            [class.campo__opcao--escolhida]="ehEscolhida(opcao)"
+            [class.campo__opcao--ativa]="i === indiceAtivo"
+            [attr.aria-selected]="ehEscolhida(opcao)"
+            (mouseenter)="indiceAtivo = i"
+            (click)="escolher(opcao)"
+          >
+            <span class="campo__opcao-rotulo">{{ opcao.name }}</span>
+            @if (ehEscolhida(opcao)) {
+              <span class="campo__marca" aria-hidden="true">✓</span>
+            }
+          </li>
+        } @empty {
+          <li class="campo__vazio">Nenhuma opção disponível</li>
+        }
+      </ul>
+    }
+  </div>
+
+  @if (apoio) {
+    <p class="campo__apoio" [id]="id + '-apoio'">{{ apoio }}</p>
+  }
+</div>

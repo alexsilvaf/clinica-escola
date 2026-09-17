@@ -5,6 +5,7 @@
   [disabled]="!disponivel()"
   [attr.aria-label]="nomeAcessivel()"
   [attr.aria-pressed]="disponivel() ? selecionado() : null"
+  [routerLink]="'agendamento'"
   (click)="selecionar()"
 >
   <span class="horario-card__hora">{{ horario().hora }}</span>

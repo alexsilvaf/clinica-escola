@@ -24,6 +24,10 @@ coverage/
 /documentacao/design/telas-modais-restantes.md
 /documentacao/design/componentes-restantes.md
 
+# Saídas geradas localmente por ferramentas e agentes
+/.codex-build/
+/output/
+
 # Variáveis de ambiente: manter somente modelos sem segredos
 .env
 .env.*
@@ -50,6 +54,9 @@ pnpm-debug.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+# Claude Code: preferências desta máquina (um .claude/settings.json de equipe pode ser versionado)
+.claude/settings.local.json
 
 # Sistema operacional
 .DS_Store

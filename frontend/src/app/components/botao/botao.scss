@@ -10,7 +10,7 @@
 .botao {
   min-height: 44px;
   padding: var(--espaco-8) var(--espaco-21);
-  border: 1px solid transparent;
+  border: var(--botao-border, 1px solid);
   border-radius: var(--raio-controle);
   background: var(--cor-marca);
   color: var(--cor-superficie);
@@ -33,7 +33,7 @@
 .botao--secundario {
   border-color: var(--cor-borda-forte);
   background: var(--cor-superficie);
-  color: var(--cor-texto);
+  color: var(--cor-marca);
 
   &:hover:not(:disabled) {
     background: var(--cor-marca-suave);

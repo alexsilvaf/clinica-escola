@@ -1,10 +1,10 @@
 <a class="atalho-conteudo" href="#conteudo-principal">Pular para o conteúdo principal</a>
 <header class="cabecalho">
   <div class="cabecalho__conteudo">
-    <a class="marca" routerLink="/" aria-label="Clínicas-Escola — página inicial">
-      <span class="marca__simbolo" aria-hidden="true">CE</span>
+    <a class="marca" routerLink="/" aria-label="Clínica-Escola — página inicial">
+      <img class="marca__simbolo" src="marca/simbolo.svg" width="25" height="32" alt="" />
       <span class="marca__nome">
-        <span class="marca__titulo">Clínicas-Escola</span>
+        <span class="marca__titulo">Clínica-Escola</span>
         <span class="marca__instituicao">Anhanguera Guarapari</span>
       </span>
     </a>
@@ -12,6 +12,7 @@
       <a href="#horarios">Horários disponíveis</a>
       <a href="#informacoes-clinica">Informações da clínica</a>
     </nav>
-    <span class="demonstracao">Demonstração</span>
+    <app-botao [rotulo]="'Meu agendamento'" [variante]="'secundario'" class="meu-agendamento"></app-botao>
+    <app-botao [rotulo]="'Agendar atendimento'" [routerLink]="'/horarios-disponiveis'"></app-botao>
   </div>
 </header>
