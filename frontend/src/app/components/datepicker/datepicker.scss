@@ -1,0 +1,254 @@
+:host {
+  display: block;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-4);
+}
+
+.campo__rotulo {
+  color: var(--cor-texto);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.campo__controle {
+  position: relative;
+}
+
+.campo__caixa {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-8);
+  height: 40px;
+  min-height: 40px;
+  padding: 0 var(--espaco-13);
+  border: 1px solid var(--cor-borda-forte);
+  border-radius: var(--raio-controle);
+  background: var(--cor-superficie);
+
+  // Mesmo foco do Campo do design system: borda de 2 px, sem deslocar o conteúdo.
+  &:focus-within {
+    border-color: var(--cor-marca-borda);
+    box-shadow: inset 0 0 0 1px var(--cor-marca-borda);
+  }
+
+  &--desabilitada {
+    border-color: var(--cor-borda);
+    background: var(--cor-superficie-sutil);
+  }
+}
+
+.campo--erro .campo__caixa {
+  border-color: var(--cor-erro-texto);
+  box-shadow: inset 0 0 0 1px var(--cor-erro-texto);
+}
+
+.campo__entrada {
+  flex: 1 0 0;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--cor-texto);
+  font-size: 16px;
+  line-height: 24px;
+  outline: none;
+
+  &::placeholder {
+    color: var(--cor-texto-secundario);
+  }
+
+  &:disabled {
+    color: var(--cor-texto-secundario);
+    cursor: not-allowed;
+  }
+}
+
+.campo__acao {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+
+  // O ícone tem 20 px, como no desenho; a área de toque chega aos 40 px exigidos.
+  &::after {
+    content: '';
+    position: absolute;
+    inset: -10px;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+.calendario {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + var(--espaco-4));
+  left: 0;
+  width: max-content;
+  padding: var(--espaco-13);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-controle);
+  background: var(--cor-superficie);
+  box-shadow: var(--sombra-flutuante);
+}
+
+.calendario__topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espaco-8);
+  margin-bottom: var(--espaco-4);
+}
+
+.calendario__titulo {
+  margin: 0;
+  color: var(--cor-texto);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+.calendario__navegar {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--raio-controle);
+  background: none;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--cor-superficie-sutil);
+  }
+}
+
+.calendario__seta--anterior {
+  transform: rotate(90deg);
+}
+
+.calendario__seta--proximo {
+  transform: rotate(-90deg);
+}
+
+.calendario__linha {
+  display: grid;
+  grid-template-columns: repeat(7, 40px);
+}
+
+.calendario__cabecalho {
+  display: grid;
+  place-items: center;
+  height: 24px;
+  color: var(--cor-texto-secundario);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.calendario__dia {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: var(--raio-controle);
+  background: none;
+  color: var(--cor-texto);
+  font-size: 16px;
+  line-height: 24px;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--cor-superficie-sutil);
+  }
+
+  &--fora {
+    color: var(--cor-texto-secundario);
+  }
+
+  &--hoje {
+    border-color: var(--cor-marca-borda);
+    color: var(--cor-marca);
+    font-weight: 500;
+  }
+
+  &--escolhido {
+    border-color: var(--cor-marca);
+    background: var(--cor-marca);
+    color: var(--cor-superficie);
+    font-weight: 500;
+  }
+
+  &--bloqueado {
+    color: var(--cor-borda-forte);
+    cursor: not-allowed;
+
+    &:hover {
+      background: none;
+    }
+  }
+}
+
+.calendario__rodape {
+  display: flex;
+  margin-top: var(--espaco-4);
+}
+
+.calendario__hoje {
+  min-height: 40px;
+  padding: 0 var(--espaco-8);
+  border: 0;
+  border-radius: var(--raio-controle);
+  background: none;
+  color: var(--cor-marca);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+
+  &:hover:not(:disabled) {
+    background: var(--cor-marca-suave);
+  }
+
+  &:disabled {
+    color: var(--cor-texto-secundario);
+    cursor: not-allowed;
+  }
+}
+
+// Os dias ficam sempre com 40 px, o alvo mínimo do projeto; em telas muito
+// estreitas o painel para de crescer em vez de ultrapassar a largura da tela.
+@media (max-width: 767px) {
+  .calendario {
+    max-width: calc(100vw - var(--espaco-34));
+    overflow-x: auto;
+  }
+}
+
+.campo__apoio {
+  margin: 0;
+  color: var(--cor-texto-secundario);
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.campo--erro .campo__apoio {
+  color: var(--cor-erro-texto);
+}

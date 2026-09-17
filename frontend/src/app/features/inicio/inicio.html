@@ -3,9 +3,11 @@
     <div class="cabecalho__conteudo">
         <h1 class="title">Agende seu atendimento gratuito nas Clínicas-Escola</h1>
         <p class="subtitle">Fisioterapia, Psicologia, Odontologia e Nutrição. Você escolhe o serviço e vê apenas horários que realmente existem: com estudante habilitado, supervisão disponível e consultório livre.</p>
-        <div class="card" style="display: flex;">
+        <div class="card d-flex align-items-center">
             <app-dropdown [id]="'servico'" [label]="'Serviço'" [placeholder]="'Fisioterapia · avaliação'" [description]="'Escolha o que você precisa.'" [options]="servicos" [(value)]="servico"></app-dropdown>
             <app-dropdown [id]="'clinica'" [label]="'Clínica ou bairro'" [placeholder]="'Clínica de Fisioterapia · Centro'" [description]="'Todas as unidades da instituição.'" [options]="clinicas" [(value)]="clinica"></app-dropdown>
+            <app-datepicker [id]="'a-partir-de'" [label]="'A partir de'" [description]="'Mostramos as próximas 4 semanas.'" [min]="hoje" [max]="ultimoDia" [(value)]="dataInicial"></app-datepicker>
+            <app-botao [rotulo]="'Ver horários disponíveis'"/>
         </div>
     </div>
 </header>

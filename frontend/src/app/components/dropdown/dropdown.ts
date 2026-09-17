@@ -3,9 +3,11 @@ import {
   ElementRef,
   EventEmitter,
   HostListener,
+  Injector,
   Input,
   Output,
   ViewChild,
+  afterNextRender,
   inject,
 } from '@angular/core';
 
@@ -38,6 +40,7 @@ export class Dropdown {
 
   @ViewChild('lista') private lista?: ElementRef<HTMLUListElement>;
   private readonly elemento: ElementRef<HTMLElement> = inject(ElementRef);
+  private readonly injector = inject(Injector);
   private busca = '';
   private buscaEm = 0;
 
@@ -100,7 +103,7 @@ export class Dropdown {
         break;
       case 'ArrowUp':
         evento.preventDefault();
-        this.irPara(this.indiceAtivo - 1);
+        this.irPara(this.indiceAtivo < 0 ? this.options.length - 1 : this.indiceAtivo - 1);
         break;
       case 'Home':
         evento.preventDefault();
@@ -158,7 +161,12 @@ export class Dropdown {
   protected abrir(): void {
     this.aberto = true;
     const escolhida = this.options.findIndex((opcao) => opcao.value === this.value);
-    this.irPara(escolhida >= 0 ? escolhida : 0);
+    // Sem nada escolhido a lista abre sem realce, como no desenho; o realce começa pelo teclado.
+    if (escolhida >= 0) {
+      this.irPara(escolhida);
+    } else {
+      this.indiceAtivo = -1;
+    }
   }
 
   protected fechar(): void {
@@ -173,10 +181,13 @@ export class Dropdown {
     }
     const total = this.options.length;
     this.indiceAtivo = ((indice % total) + total) % total;
-    queueMicrotask(() => {
-      const ativa = this.lista?.nativeElement.children.item(this.indiceAtivo);
-      ativa?.scrollIntoView({ block: 'nearest' });
-    });
+    afterNextRender(
+      () => {
+        const ativa = this.lista?.nativeElement.children.item(this.indiceAtivo);
+        ativa?.scrollIntoView({ block: 'nearest' });
+      },
+      { injector: this.injector },
+    );
   }
 
   /** Digitar letras salta para a opção correspondente, como num select nativo. */

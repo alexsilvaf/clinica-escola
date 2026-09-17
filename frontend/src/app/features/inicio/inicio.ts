@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CabecalhoPublico } from '../../components/cabecalho-publico/cabecalho-publico';
+import { Datepicker } from '../../components/datepicker/datepicker';
 import { Dropdown, OpcaoDropdown } from '../../components/dropdown/dropdown';
+import { Botao } from '../../components/botao/botao';
 
 @Component({
-  imports: [CabecalhoPublico, FormsModule, Dropdown],
+  imports: [CabecalhoPublico, FormsModule, Dropdown, Datepicker, Botao],
   selector: 'app-inicio',
   styleUrl: './inicio.scss',
   templateUrl: './inicio.html',
@@ -30,4 +32,15 @@ export class Inicio {
 
   servico: unknown = '';
   clinica: unknown = '';
+
+  // A busca pública só mostra as próximas quatro semanas.
+  readonly hoje = this.emIso(new Date());
+  readonly ultimoDia = this.emIso(new Date(Date.now() + 27 * 24 * 60 * 60 * 1000));
+  dataInicial = this.hoje;
+
+  private emIso(data: Date): string {
+    const mes = `${data.getMonth() + 1}`.padStart(2, '0');
+    const dia = `${data.getDate()}`.padStart(2, '0');
+    return `${data.getFullYear()}-${mes}-${dia}`;
+  }
 }

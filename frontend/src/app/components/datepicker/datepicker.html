@@ -1,0 +1,136 @@
+<div class="campo" [class.campo--erro]="temErro" (focusout)="aoSairDoFoco($event)">
+  <label class="campo__rotulo" [for]="id">{{ label }}</label>
+
+  <div class="campo__controle">
+    <div class="campo__caixa" [class.campo__caixa--desabilitada]="desabilitado">
+      <input
+        class="campo__entrada"
+        type="text"
+        inputmode="numeric"
+        autocomplete="off"
+        maxlength="10"
+        [id]="id"
+        [disabled]="desabilitado"
+        [placeholder]="placeholder"
+        [value]="texto"
+        [attr.aria-describedby]="apoio ? id + '-apoio' : null"
+        [attr.aria-invalid]="temErro ? 'true' : null"
+        (input)="aoDigitar($event)"
+        (keydown)="aoTeclarNoCampo($event)"
+        (blur)="confirmarTexto()"
+      />
+      <button
+        class="campo__acao"
+        type="button"
+        [disabled]="desabilitado"
+        [attr.aria-label]="aberto ? 'Fechar o calendário' : 'Escolher no calendário'"
+        [attr.aria-expanded]="aberto"
+        [attr.aria-controls]="id + '-calendario'"
+        (click)="alternar()"
+      >
+        <img src="icons/agenda.svg" width="20" height="20" alt="" />
+      </button>
+    </div>
+
+    @if (aberto) {
+      <div
+        class="calendario"
+        role="dialog"
+        aria-label="Escolher data"
+        [id]="id + '-calendario'"
+        (mousedown)="$event.preventDefault()"
+      >
+        <div class="calendario__topo">
+          <button
+            class="calendario__navegar"
+            type="button"
+            aria-label="Mês anterior"
+            (click)="mudarMes(-1)"
+          >
+            <img
+              class="calendario__seta calendario__seta--anterior"
+              src="icons/abrir-opcoes.svg"
+              width="20"
+              height="20"
+              alt=""
+            />
+          </button>
+          <p class="calendario__titulo" aria-live="polite">{{ titulo }}</p>
+          <button
+            class="calendario__navegar"
+            type="button"
+            aria-label="Próximo mês"
+            (click)="mudarMes(1)"
+          >
+            <img
+              class="calendario__seta calendario__seta--proximo"
+              src="icons/abrir-opcoes.svg"
+              width="20"
+              height="20"
+              alt=""
+            />
+          </button>
+        </div>
+
+        <div
+          class="calendario__grade"
+          role="grid"
+          [attr.aria-label]="titulo"
+          (keydown)="aoTeclarNaGrade($event)"
+        >
+          <div class="calendario__linha" role="row">
+            @for (dia of diasDaSemana; track dia.completo) {
+              <abbr
+                class="calendario__cabecalho"
+                role="columnheader"
+                [attr.aria-label]="dia.completo"
+                [title]="dia.completo"
+                >{{ dia.curto }}</abbr
+              >
+            }
+          </div>
+
+          @for (semana of semanas; track $index) {
+            <div class="calendario__linha" role="row">
+              @for (dia of semana; track dia.iso) {
+                <div role="gridcell" [attr.aria-selected]="dia.escolhido">
+                  <button
+                    class="calendario__dia"
+                    type="button"
+                    [class.calendario__dia--fora]="!dia.doMes"
+                    [class.calendario__dia--hoje]="dia.hoje"
+                    [class.calendario__dia--escolhido]="dia.escolhido"
+                    [class.calendario__dia--bloqueado]="dia.bloqueado"
+                    [class.calendario__dia--focado]="dia.iso === diaFocado"
+                    [tabindex]="dia.iso === diaFocado ? 0 : -1"
+                    [attr.aria-label]="dia.descricao"
+                    [attr.aria-disabled]="dia.bloqueado ? 'true' : null"
+                    [attr.aria-current]="dia.hoje ? 'date' : null"
+                    (click)="escolherDia(dia)"
+                  >
+                    {{ dia.numero }}
+                  </button>
+                </div>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="calendario__rodape">
+          <button
+            class="calendario__hoje"
+            type="button"
+            [disabled]="hojeBloqueado"
+            (click)="irParaHoje()"
+          >
+            Hoje
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+
+  @if (apoio) {
+    <p class="campo__apoio" [id]="id + '-apoio'">{{ apoio }}</p>
+  }
+</div>
