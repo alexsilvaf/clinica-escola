@@ -27,7 +27,6 @@ public class ListarHorariosDisponiveis {
         return horarioRepository.buscarDisponiveisDepoisDe(LocalDateTime.now(clock))
                 .stream()
                 .map(this::montarResultado)
-                .filter(horario -> horario.vagas() > 0)
                 .toList();
     }
 

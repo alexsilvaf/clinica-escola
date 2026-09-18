@@ -45,7 +45,7 @@ class ListarHorariosDisponiveisTest {
     }
 
     @Test
-    void deveListarSomenteHorariosComVaga() {
+    void deveListarHorariosComVagaEHorariosCheios() {
         LocalDateTime agora = LocalDateTime.now(CLOCK);
         Horario comVaga = Horario.reconstituir(
                 1L, "Atendimento", "Clínica", agora.plusHours(1), agora.plusHours(2), true, 2);
@@ -58,10 +58,8 @@ class ListarHorariosDisponiveisTest {
 
         var resultado = listarHorarios.executar();
 
-        assertThat(resultado).singleElement()
-                .satisfies(horario -> {
-                    assertThat(horario.id()).isEqualTo(1L);
-                    assertThat(horario.vagas()).isEqualTo(1);
-                });
+        assertThat(resultado)
+                .extracting(HorarioDisponivel::vagas)
+                .containsExactly(1, 0);
     }
 }
