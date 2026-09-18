@@ -18,6 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
+import br.com.clinicaescola.agendamento.dominio.AgendamentoRepository;
+
 @SpringBootTest
 @ActiveProfiles("test")
 class ClinicaEscolaApplicationTests {
@@ -30,6 +32,9 @@ class ClinicaEscolaApplicationTests {
 
 	@Autowired
 	private Validator validator;
+
+	@Autowired
+	private AgendamentoRepository agendamentoRepository;
 
 	@Test
 	void usesH2AndHibernate() throws SQLException {
@@ -56,6 +61,12 @@ class ClinicaEscolaApplicationTests {
 	@Test
 	void lombokAnnotationProcessingWorks() {
 		assertThat(new ValidationSample("Valido", 5).getName()).isEqualTo("Valido");
+	}
+
+	@Test
+	void repositoryAdapterIsRegisteredAndCountNeverReturnsNull() {
+		assertThat(agendamentoRepository).isNotNull();
+		assertThat(agendamentoRepository.contarPorHorario(Long.MAX_VALUE)).isZero();
 	}
 
 	@Getter

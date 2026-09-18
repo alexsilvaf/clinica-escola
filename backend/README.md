@@ -155,7 +155,7 @@ limites numéricos/textuais e processamento de anotações Lombok.
 - usuário `sa`, senha vazia, apenas para desenvolvimento local;
 - console em `http://localhost:8080/h2-console`, sem acesso remoto habilitado;
 - `ddl-auto=create-drop`: gera as tabelas a partir das entidades e descarta
-  os dados ao encerrar. Ainda não há entidades ou tabelas de negócio.
+  os dados ao encerrar.
 
 O perfil `test` usa H2 com nome único por contexto e console desabilitado.
 O console H2 e DevTools são dependências `developmentOnly` e não integram
@@ -167,18 +167,27 @@ inclusive com o driver do banco escolhido.
 `spring.mvc.problemdetails.enabled=true` habilita o formato de erro padrão do
 Spring MVC; erros de domínio poderão receber tratamento específico no futuro.
 
-## Organização recomendada
+## Organização DDD
 
-Criar pacotes por funcionalidade abaixo de `br.com.clinicaescola`, conforme
-os casos de uso forem implementados. Exemplo: `estudante.controller`,
-`estudante.dto`, `estudante.entity`, `estudante.repository`, `estudante.service`.
-Código transversal pode ir em `config` e `shared`, somente quando necessário.
-Usar PascalCase para classes, minúsculas para pacotes e um idioma consistente.
-Não é necessário criar classes ou diretórios vazios agora.
+O backend usa DDD pragmático, organizado primeiro pelo contexto de negócio e
+depois pela responsabilidade técnica:
 
-Usar DTOs na API, entidades na persistência e transações nos services.
-Evitar retornar entidades diretamente ou usar `@Data` indiscriminadamente
-em entidades com relacionamentos JPA.
+```text
+agendamento/
+├── api/             # controllers, DTOs e tratamento de erros HTTP
+├── aplicacao/       # casos de uso: ReservarHorario e ListarHorariosDisponiveis
+├── dominio/         # Horario, Agendamento, repositórios, regras e exceções
+└── infraestrutura/  # JPA, configuração e dados de desenvolvimento
+```
+
+O domínio não depende de Spring, JPA ou da camada web. Os services de aplicação
+coordenam a transação e dependem dos contratos de repositório definidos pelo
+domínio. A infraestrutura implementa esses contratos com Spring Data JPA. Os
+controllers apenas validam e traduzem HTTP para os casos de uso.
+
+Novos contextos devem seguir a mesma organização quando possuírem regras e casos
+de uso próprios. Evitar criar interfaces, mappers ou camadas sem uma necessidade
+concreta: a separação deve proteger o negócio, não aumentar cerimônia.
 
 ## Validações e tabelas
 
