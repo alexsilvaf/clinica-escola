@@ -1,11 +1,10 @@
 export interface Horario {
-  readonly id: string;
-  readonly data: string;
-  readonly hora: string;
-  readonly sala: string;
+  readonly id: number;
+  readonly servico: string;
+  readonly local: string;
+  readonly inicio: string;
+  readonly fim: string;
   readonly vagas: number;
-  readonly disponivel: boolean;
-  readonly motivoIndisponibilidade?: string;
 }
 
 export interface HorariosDoDia {

@@ -1,13 +1,19 @@
-import { Horario } from '../../../models/horario.model';
+ /**
+  * Gera datas futuras para que o exemplo não envelheça com o calendário.
+  */
 
-/** Gera datas futuras para que o exemplo não envelheça com o calendário. */
-export function criarHorariosMock(referencia = new Date()): readonly Horario[] {
+export function criarHorariosMock(
+  referencia = new Date(),
+) {
+
   const proximaData = (dias: number): string => {
+
     const data = new Date(
       referencia.getFullYear(),
       referencia.getMonth(),
       referencia.getDate() + dias,
     );
+
     const ano = data.getFullYear();
     const mes = String(data.getMonth() + 1).padStart(2, '0');
     const dia = String(data.getDate()).padStart(2, '0');
@@ -17,7 +23,7 @@ export function criarHorariosMock(referencia = new Date()): readonly Horario[] {
 
   return [
     {
-      id: 'horario-1',
+      id: 1,
       data: proximaData(1),
       hora: '08:00',
       sala: 'Sala 1',
@@ -25,7 +31,7 @@ export function criarHorariosMock(referencia = new Date()): readonly Horario[] {
       disponivel: true,
     },
     {
-      id: 'horario-2',
+      id: 2,
       data: proximaData(1),
       hora: '09:00',
       sala: 'Sala 1',
@@ -33,7 +39,7 @@ export function criarHorariosMock(referencia = new Date()): readonly Horario[] {
       disponivel: true,
     },
     {
-      id: 'horario-3',
+      id: 3,
       data: proximaData(1),
       hora: '10:00',
       sala: 'Sala 1',
@@ -42,7 +48,7 @@ export function criarHorariosMock(referencia = new Date()): readonly Horario[] {
       motivoIndisponibilidade: 'Sem vaga',
     },
     {
-      id: 'horario-4',
+      id: 4,
       data: proximaData(1),
       hora: '11:00',
       sala: 'Sala 1',
@@ -50,7 +56,7 @@ export function criarHorariosMock(referencia = new Date()): readonly Horario[] {
       disponivel: true,
     },
     {
-      id: 'horario-5',
+      id: 5,
       data: proximaData(2),
       hora: '08:00',
       sala: 'Sala 1',
@@ -58,7 +64,7 @@ export function criarHorariosMock(referencia = new Date()): readonly Horario[] {
       disponivel: true,
     },
     {
-      id: 'horario-6',
+      id: 6,
       data: proximaData(2),
       hora: '09:00',
       sala: 'Sala 1',
@@ -66,7 +72,7 @@ export function criarHorariosMock(referencia = new Date()): readonly Horario[] {
       disponivel: true,
     },
     {
-      id: 'horario-7',
+      id: 7,
       data: proximaData(2),
       hora: '10:00',
       sala: 'Sala 1',
@@ -75,7 +81,7 @@ export function criarHorariosMock(referencia = new Date()): readonly Horario[] {
       motivoIndisponibilidade: 'Sem supervisão',
     },
     {
-      id: 'horario-8',
+      id: 8,
       data: proximaData(2),
       hora: '11:00',
       sala: 'Sala 1',
@@ -83,7 +89,7 @@ export function criarHorariosMock(referencia = new Date()): readonly Horario[] {
       disponivel: true,
     },
     {
-      id: 'horario-9',
+      id: 9,
       data: proximaData(3),
       hora: '08:00',
       sala: 'Sala 1',
@@ -92,7 +98,7 @@ export function criarHorariosMock(referencia = new Date()): readonly Horario[] {
       motivoIndisponibilidade: 'Sala em manutenção',
     },
     {
-      id: 'horario-10',
+      id: 10,
       data: proximaData(3),
       hora: '09:00',
       sala: 'Sala 1',
@@ -100,7 +106,7 @@ export function criarHorariosMock(referencia = new Date()): readonly Horario[] {
       disponivel: true,
     },
     {
-      id: 'horario-11',
+      id: 11,
       data: proximaData(3),
       hora: '10:00',
       sala: 'Sala 1',
@@ -108,7 +114,7 @@ export function criarHorariosMock(referencia = new Date()): readonly Horario[] {
       disponivel: true,
     },
     {
-      id: 'horario-12',
+      id: 12,
       data: proximaData(3),
       hora: '11:00',
       sala: 'Sala 1',

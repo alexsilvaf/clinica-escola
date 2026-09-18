@@ -8,8 +8,14 @@
   [routerLink]="'agendamento'"
   (click)="selecionar()"
 >
-  <span class="horario-card__hora">{{ horario().hora }}</span>
-  <span class="horario-card__detalhe">{{ detalhe() }}</span>
+  <span class="horario-card__hora">
+    {{ horario().inicio.split('T')[1].slice(0, 5) }}
+  </span>
+
+  <span class="horario-card__detalhe">
+    {{ detalhe() }}
+  </span>
+
   @if (selecionado() && disponivel()) {
     <span class="horario-card__selecao">Selecionado</span>
   }

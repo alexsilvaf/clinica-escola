@@ -7,6 +7,7 @@ import {
   signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+
 import { AcessibilidadeLocal } from '../../components/acessibilidade-local/acessibilidade-local';
 import { Aviso } from '../../components/aviso/aviso';
 import { Botao } from '../../components/botao/botao';
@@ -16,6 +17,7 @@ import { EtapasAgendamento } from '../../components/etapas-agendamento/etapas-ag
 import { HorarioDia } from '../../components/horario-dia/horario-dia';
 import { ResumoServico } from '../../components/resumo-servico/resumo-servico';
 import { RodapePublico } from '../../components/rodape-publico/rodape-publico';
+
 import { Horario, HorariosDoDia } from '../../models/horario.model';
 import { formatarDataLocal } from '../../utils/data.util';
 import { CLINICA_MOCK } from './mocks/clinica.mock';
@@ -44,26 +46,45 @@ export class HorariosDisponiveis {
   private readonly destroyRef = inject(DestroyRef);
 
   readonly clinica = CLINICA_MOCK;
+
   readonly horarios = signal<readonly Horario[]>([]);
   readonly carregando = signal(false);
   readonly erro = signal<string | null>(null);
   readonly horarioSelecionado = signal<Horario | null>(null);
+
   readonly gruposHorarios = computed<readonly HorariosDoDia[]>(() => {
     const grupos = new Map<string, Horario[]>();
+
     for (const horario of this.horarios()) {
-      const horariosDoDia = grupos.get(horario.data) ?? [];
+      const data = horario.inicio.split('T')[0];
+
+      const horariosDoDia = grupos.get(data) ?? [];
+
       horariosDoDia.push(horario);
-      grupos.set(horario.data, horariosDoDia);
+      grupos.set(data, horariosDoDia);
     }
+
     return Array.from(grupos, ([data, horarios]) => ({
       data,
-      horarios: horarios.sort((primeiro, segundo) => primeiro.hora.localeCompare(segundo.hora)),
-    })).sort((primeiro, segundo) => primeiro.data.localeCompare(segundo.data));
+      horarios: horarios.sort((primeiro, segundo) =>
+        primeiro.inicio.localeCompare(segundo.inicio),
+      ),
+    })).sort((primeiro, segundo) =>
+      primeiro.data.localeCompare(segundo.data),
+    );
   });
+
   readonly resumoSelecao = computed(() => {
     const horario = this.horarioSelecionado();
-    if (!horario) return '';
-    return `${formatarDataLocal(horario.data)} às ${horario.hora} · ${horario.sala}. A próxima etapa ainda não foi implementada; nenhuma reserva foi criada.`;
+
+    if (!horario) {
+      return '';
+    }
+
+    const data = horario.inicio.split('T')[0];
+    const hora = horario.inicio.split('T')[1].slice(0, 5);
+
+    return `${formatarDataLocal(data)} às ${hora} · ${horario.local}`;
   });
 
   constructor() {
@@ -71,7 +92,10 @@ export class HorariosDisponiveis {
   }
 
   carregarHorarios(): void {
-    if (this.carregando()) return;
+    if (this.carregando()) {
+      return;
+    }
+
     this.carregando.set(true);
     this.erro.set(null);
     this.horarioSelecionado.set(null);
@@ -95,7 +119,7 @@ export class HorariosDisponiveis {
   }
 
   selecionarHorario(horario: Horario): void {
-    if (horario.disponivel && horario.vagas > 0) {
+    if (horario.vagas > 0) {
       this.horarioSelecionado.set(horario);
     }
   }

@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  input,
+  output,
+} from '@angular/core';
+
 import { Horario } from '../../models/horario.model';
 import { formatarDataLocal } from '../../utils/data.util';
 import { RouterLink } from '@angular/router';
@@ -12,19 +19,30 @@ import { RouterLink } from '@angular/router';
   imports: [RouterLink],
 })
 export class HorarioCard {
+
   readonly horario = input.required<Horario>();
   readonly selecionado = input(false);
   readonly horarioSelecionado = output<Horario>();
-  readonly disponivel = computed(() => this.horario().disponivel && this.horario().vagas > 0);
+
+  readonly disponivel = computed(() => this.horario().vagas > 0);
+
   readonly detalhe = computed(() => {
     const horario = this.horario();
+
     return this.disponivel()
-      ? `${horario.sala} · ${horario.vagas} ${horario.vagas === 1 ? 'vaga' : 'vagas'}`
-      : (horario.motivoIndisponibilidade ?? 'Sem vaga');
+      ? `${horario.local} · ${horario.vagas} ${
+          horario.vagas === 1 ? 'vaga' : 'vagas'
+        }`
+      : 'Sem vaga';
   });
+
   readonly nomeAcessivel = computed(() => {
     const horario = this.horario();
-    const contexto = `${formatarDataLocal(horario.data)} às ${horario.hora}, ${this.detalhe()}`;
+
+    const contexto = `${formatarDataLocal(
+      horario.inicio.split('T')[0],
+    )} às ${horario.inicio.split('T')[1].slice(0, 5)}, ${this.detalhe()}`;
+
     return this.disponivel()
       ? `Selecionar horário: ${contexto}`
       : `Horário indisponível: ${contexto}`;
