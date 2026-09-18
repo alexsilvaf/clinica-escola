@@ -1,0 +1,32 @@
+.title {
+    color: var(--semantico-texto-primario, #16242B);
+
+    /* Titulo/21 Destaque */
+    font-family: Inter;
+    font-size: 21px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 28px; /* 133.333% */
+}
+
+.subtitle {
+    color: var(--semantico-texto-secundario, #63757E);
+
+    /* Corpo/13 Regular */
+    font-family: Inter;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px; /* 153.846% */
+}
+
+.subtitle-hour {
+    color: var(--semantico-texto-marca, #0B635E);
+
+    /* Corpo/13 Medio */
+    font-family: Inter;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px; /* 153.846% */
+}

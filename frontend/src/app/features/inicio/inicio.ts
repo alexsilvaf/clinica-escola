@@ -4,9 +4,10 @@ import { CabecalhoPublico } from '../../components/cabecalho-publico/cabecalho-p
 import { Datepicker } from '../../components/datepicker/datepicker';
 import { Dropdown, OpcaoDropdown } from '../../components/dropdown/dropdown';
 import { Botao } from '../../components/botao/botao';
+import { ServiceCard } from '../../components/service-card/service-card';
 
 @Component({
-  imports: [CabecalhoPublico, FormsModule, Dropdown, Datepicker, Botao],
+  imports: [CabecalhoPublico, FormsModule, Dropdown, Datepicker, Botao, ServiceCard],
   selector: 'app-inicio',
   styleUrl: './inicio.scss',
   templateUrl: './inicio.html',
